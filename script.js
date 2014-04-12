@@ -12,6 +12,8 @@ $(document).ready(function() {
           }
         });
     }
+    //TODO run on specific websites only
+    //w/o needing to press ctrl
     else if (e.ctrlKey) {
 
         chrome.runtime.sendMessage({method: "EpUpdate",

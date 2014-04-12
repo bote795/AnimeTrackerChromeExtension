@@ -1,10 +1,14 @@
+
 $(document).ready( function() {
-  var arrayOfUrls = JSON.parse(localStorage["savedUrls"]);
+  //TODO allow user to add anime by typing name
+  //use an autocompletefeature to complete anime name
+  //allow user to add anime ep they are in by editing the number
+  var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
   var $target = $('.links ol');
 
   for (var i = 0; i < arrayOfUrls.length; i++) {
-    var string = '<li id='+ i +'><a href=' + arrayOfUrls[i][0] + '>' + arrayOfUrls[i][1] + 
-                      '</a> EP: '+ arrayOfUrls[i][2]+'<button id='+ i +'>X</button></li>'
+    var string = '<li id='+ i +'>' + arrayOfUrls[i][0] + 
+                      '</a> EP: '+ arrayOfUrls[i][1]+'<button id='+ i +'>X</button></li>'
     $target.append(string);
   }
   
@@ -12,7 +16,7 @@ $(document).ready( function() {
     e.preventDefault();
     var id = parseInt(e.currentTarget.id);
     arrayOfUrls.splice(id, 1);
-    localStorage["savedUrls"] = JSON.stringify(arrayOfUrls);
+    localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
     $('li#' + id).remove();
   });
 });

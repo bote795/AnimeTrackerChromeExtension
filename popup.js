@@ -13,19 +13,21 @@ $(document).ready( function() {
   
   $('.container .table .btn-toolbar .btn-group button').on('click', function(e) {
     e.preventDefault();
-    //TODO make counter update when clicked
+    //TODO make counter clickable and you can change by a huge range
      if($(e.currentTarget).text() == "-")
      {
       var id = parseInt(e.currentTarget.id);
       var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
-      arrayOfUrls[id][1]--;
+      var counter =$('.container .table .btn-toolbar .btn-group .btn').filter(".disabled").filter("#"+id);
+      counter.html(--arrayOfUrls[id][1])
       localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
      }
      else if($(e.currentTarget).text() == "+")
      {
         var id = parseInt(e.currentTarget.id);
         var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
-        arrayOfUrls[id][1]++;
+        var counter =$('.container .table .btn-toolbar .btn-group .btn').filter(".disabled").filter("#"+id);
+         counter.html(++arrayOfUrls[id][1])
         localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
      }
      else if($(e.currentTarget).text() == "X")

@@ -13,9 +13,8 @@ $(document).ready(function() {
         });
     }
     //TODO run on specific websites only
-    //w/o needing to press ctrl
-    else if (e.ctrlKey) {
-
+    //ask if this is bad?for runtime
+    else {
         chrome.runtime.sendMessage({method: "EpUpdate",
                                   sentUrl: e.currentTarget.href,
                                   title: $(e.currentTarget).text() },
@@ -25,6 +24,6 @@ $(document).ready(function() {
           }
         });
   }
-  else;
+ 
   });
 });

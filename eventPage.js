@@ -18,9 +18,18 @@ chrome.runtime.onMessage.addListener(
           break;
         }
       }
-      //need to fix space issue
-        //alert (temp2);
-      arrayOfUrls.unshift([temp2, 0]);
+      //checks for duplicate if so dont insert
+      var duplicate = false;
+      var titleColumn =0;
+     for (var i = 0; i < arrayOfUrls.length; i++) {
+       if(arrayOfUrls[i][titleColumn] == temp2)
+       {
+          duplicate = true;
+       }
+     }
+     //duplication check finished
+      if(!duplicate)
+        arrayOfUrls.unshift([temp2, 0]);
       localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
       sendResponse({status: 200});
     }

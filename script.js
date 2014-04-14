@@ -1,4 +1,4 @@
-///this only works when website is completely done loading
+///this makes it work when website loading and fully loaded
 (function($) {
     
     var jqReady = $.Deferred();
@@ -40,7 +40,7 @@ function body(e){
                                   title: $(e.currentTarget).text() },
         function (response) {
           if (response.status === 200) {
-            $(e.target).css("color", "green");
+           // $(e.target).css("color", "green");
           }
         });
   }

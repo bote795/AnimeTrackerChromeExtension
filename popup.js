@@ -1,17 +1,41 @@
 
 $(document).ready( function() {
-  //TODO allow user to add anime by typing name
+  //TODO 
   //use an autocompletefeature to complete anime name
   //allow user to add anime ep they are in by editing the number
   var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
   var $target = $('.container .table > tbody');
 
+  //adds in the rows for each anime
   for (var i = 0; i < arrayOfUrls.length; i++) {
     var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1] );
     $target.append(string);
   }
-  
-  $('.container .table .btn-toolbar .btn-group button').on('click', function(e) {
+
+  //add anime form
+  $( "form" ).submit(function( event ) {
+  var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+  event.preventDefault();
+  var fieldNumber = 2,
+   str = $( "form" ).serializeArray(),
+    temp = [];
+    jQuery.each( str, function( i, field ) {
+     if(field.value ===null || field.value ==='undefined' || field.value.length == 0)
+      {
+        return;
+      }
+          temp.push(field.value);
+    });
+    //checks for duplicate if so dont insert
+      if(!duplicate(temp[0]))
+      {
+        arrayOfUrls.unshift(temp);
+        localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+        redraw();
+      }
+});
+  //takes care of buttons for each row(anime)
+  $('body').on('click','.container .table .btn-toolbar .btn-group button',function(e) {
     e.preventDefault();
     //TODO make counter clickable and you can change by a huge range
      if($(e.currentTarget).text() == "-")
@@ -58,5 +82,26 @@ function tableRow(i, title, ep)
     "</td>"+
 "</tr>";
 }
-
-
+ function duplicate(item)
+ {
+      var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+      var titleColumn =0;
+     for (var i = 0; i < arrayOfUrls.length; i++) {
+       if(arrayOfUrls[i][titleColumn] == item)
+       {
+         return true;
+       }
+     }
+     return false;
+ }
+function redraw()
+{
+   var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+   var $target = $("table:first > tbody");
+   $target.empty();
+   for (var i = 0; i < arrayOfUrls.length; i++) 
+   {
+      var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1] );
+      $target.append(string);
+   }
+}

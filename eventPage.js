@@ -25,6 +25,7 @@ chrome.runtime.onMessage.addListener(
        if(arrayOfUrls[i][titleColumn] == temp2)
        {
           duplicate = true;
+          break;
        }
      }
      //duplication check finished
@@ -32,6 +33,7 @@ chrome.runtime.onMessage.addListener(
         arrayOfUrls.unshift([temp2, 0]);
       localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
       sendResponse({status: 200});
+      //TODO clear out elements inside the boxes
     }
     else if (request.method === "EpUpdate") { //start of updating Episode
       var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);

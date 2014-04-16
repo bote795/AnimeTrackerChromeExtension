@@ -40,15 +40,14 @@ chrome.runtime.onMessage.addListener(
       var temp= request.sentUrl;
       temp =temp.toLowerCase();
       var episodeColumn = 1;
+      
       for (var i = 0; i < arrayOfUrls.length; i++) 
       {
-        var titleWithHyph =arrayOfUrls[i][0];
-        titleWithHyph = titleWithHyph.toLowerCase();
-        titleWithHyph = titleWithHyph.replace(/\ /g, '-');
-
-        if(temp.indexOf(titleWithHyph+"-episode-"+(arrayOfUrls[i][episodeColumn]+1))!=-1)
+        var title =arrayOfUrls[i][0];
+        if(NextEp(temp,title,arrayOfUrls[i][episodeColumn]))
         {
           arrayOfUrls[i][episodeColumn]++;
+          break;
         }
       }
       localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
@@ -56,4 +55,38 @@ chrome.runtime.onMessage.addListener(
 
     } // close if
     else;
-  });
+  })
+
+function NextEp(url, title, ep)
+{
+    var words = [];
+title = title.toLowerCase();
+words =title.split(new RegExp("\\s+"));
+//finds a part of name and creates a substring from where that part of the url starts and the remainder of url
+  for (var i = 0; i < words.length; i++) 
+  {
+    
+    if(url.indexOf(words[i])!= -1)
+    {
+      url = url.substring(url.indexOf(words[i])+words[i].length, url.length);
+    }
+    else
+       return false;
+  }
+//looks for episode then episode # by creating substrings
+//if episode isn't found then it just looks for episode number to account for websites that don't write in episode
+    if(url.indexOf("episode") != -1)
+    {
+       url = url.substring(url.indexOf("episode")+ "episode".length, url.length);
+      if(url.indexOf(ep+1)!= -1)
+        {
+          return true;
+        }
+    }
+    else if(url.indexOf(ep+1)!= -1)
+        {
+          return true;
+        }
+    else 
+      return false;
+}

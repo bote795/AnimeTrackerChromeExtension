@@ -8,7 +8,7 @@
     if(jqReady.state() !== 'resolved'){
       
         $('a').on('click', function(e) {
-         if (isSimpleClick(e) && !worked) {
+         if (isSimpleClick(e)) {
           body(e);
         }
        });
@@ -19,7 +19,7 @@
         // Code here will run when doc is ready/ state === 'resolved'
         
          $('a').on('click', function(e) {
-         if (isSimpleClick(e) && !worked) {
+         if (isSimpleClick(e)) {
           body(e);
         }
        });

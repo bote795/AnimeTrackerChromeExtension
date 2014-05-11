@@ -10,6 +10,8 @@ $(document).ready( function() {
   //TODO 
   //Add a numbering system to see how many current animes are you watching
   //Add a sorting my first letter system
+  arrayOfUrls.sort();
+  localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
   for (var i = 0; i < arrayOfUrls.length; i++) {
     var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1] );
     $target.append(string);
@@ -72,7 +74,7 @@ $(document).ready( function() {
 function tableRow(i, title, ep)
 {
   return "<tr id="+ i +">"+
-   "<td>" + title + "</td>"+
+   "<td>" + (i+1) +". "+ title + "</td>"+
    "<td>"+
     "<div class='btn-toolbar'>"+
       "<div class='btn-group'>"+

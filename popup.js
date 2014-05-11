@@ -7,6 +7,9 @@ $(document).ready( function() {
   var $target = $('.container .table > tbody');
 
   //adds in the rows for each anime
+  //TODO 
+  //Add a numbering system to see how many current animes are you watching
+  //Add a sorting my first letter system
   for (var i = 0; i < arrayOfUrls.length; i++) {
     var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1] );
     $target.append(string);

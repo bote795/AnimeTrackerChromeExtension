@@ -4,22 +4,39 @@
     var jqReady = $.Deferred();
     // Bind doc ready to my deferred object
     $(document).bind("ready", jqReady.resolve);
-
     // Check to see is doc is ready
     if(jqReady.state() !== 'resolved'){
-        $('body').on('click', 'a', function(e) {
-         body(e);
+      
+        $('a').on('click', function(e) {
+         if (isSimpleClick(e) && !worked) {
+          body(e);
+        }
        });
+        
     }
         
     $.when(jqReady).then(function () {
         // Code here will run when doc is ready/ state === 'resolved'
-        $('body').on('click', 'a', function(e) {
-         body(e);
+        
+         $('a').on('click', function(e) {
+         if (isSimpleClick(e) && !worked) {
+          body(e);
+        }
        });
+        
+       
     });
     
 })(jQuery);
+var isSimpleClick = function (event) {
+  return (
+    event.which   || // not a left click
+    event.which ==3 ||
+    event.metaKey ||     // "open link in new tab" (mac)
+    event.ctrlKey ||     // "open link in new tab" (windows/linux)
+    event.shiftKey    // "open link in new window"
+  );
+};
 function body(e){
    if (e.shiftKey) {
       e.preventDefault();

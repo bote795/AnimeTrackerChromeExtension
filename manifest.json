@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   
-  "name": "AnimeTracker Storage",
-  "description": "Keep up to date with your Anime!",
+  "name": "AnimeTracker",
+  "description": "Keep up to date with your Anime! Add the anime your watching to the list and it will keep track of what epsiode you are on!",
   "version": "1.0",
   
   "content_scripts": [
@@ -21,6 +21,9 @@
     "default_icon": "icon.png",
     "default_popup": "popup.html"
   },
+  "permissions": [
+          "storage"
+        ],
    "web_accessible_resources": [
    "jquery-2.0.2.min.map"
    ]

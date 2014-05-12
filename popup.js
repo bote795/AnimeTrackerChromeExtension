@@ -37,7 +37,11 @@ $(document).ready( function() {
         arrayOfUrls.unshift(temp);
         localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
         redraw();
+        $('form')[0].reset()
       }
+      if(! $("#mutliple").is(":checked"))
+        $('#collapseOne').collapse('hide');
+
 });
   //takes care of buttons for each row(anime)
   $('body').on('click','.container .table .btn-toolbar .btn-group button',function(e) {

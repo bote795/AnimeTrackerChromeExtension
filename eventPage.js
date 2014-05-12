@@ -90,3 +90,17 @@ words =title.split(new RegExp("\\s+"));
     else 
       return false;
 }
+/*
+var hi = "http://www.gogoanime.com/";
+var query = 'select * from html where url ="'+ hi +'" and xpath=\'//a\'';
+
+var yqlAPI = 'http://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + ' &format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=?';
+
+$.getJSON(yqlAPI, function(r){
+    console.log('links:');
+    $.each(r.query.results.a, function(){ 
+        console.log('----------');
+        console.log(this.href);
+    });
+});
+*/

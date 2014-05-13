@@ -1,6 +1,10 @@
 if ( !localStorage["savedAnimes"] ) {
   localStorage["savedAnimes"] = JSON.stringify([]);
-   chrome.storage.sync.set({"savedAnimes": JSON.stringify(localStorage["savedAnimes"])}, function() {
+    chrome.storage.sync.get("savedAnimes", function(val) 
+      {
+        localStorage["savedAnimes"] =JSON.stringify(val);
+      });
+   chrome.storage.sync.set({"savedAnimes": localStorage["savedAnimes"]}, function() {
       log("setting myValue to "+localStorage["savedAnimes"]);
     });
 }

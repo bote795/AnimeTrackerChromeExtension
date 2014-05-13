@@ -1,5 +1,8 @@
 if ( !localStorage["savedAnimes"] ) {
   localStorage["savedAnimes"] = JSON.stringify([]);
+   chrome.storage.sync.set({"savedAnimes": JSON.stringify(localStorage["savedAnimes"])}, function() {
+      log("setting myValue to "+localStorage["savedAnimes"]);
+    });
 }
 
 chrome.runtime.onMessage.addListener(
@@ -30,7 +33,12 @@ chrome.runtime.onMessage.addListener(
      }
      //duplication check finished
       if(!duplicate)
-        arrayOfUrls.unshift([temp2, 0]);
+        {
+          arrayOfUrls.unshift([temp2, 0]);
+          chrome.storage.sync.set({"savedAnimes": JSON.stringify(arrayOfUrls)}, function() {
+          log("New Anime:  "+ JSON.stringify(arrayOfUrls));
+        });
+        }
       localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
       sendResponse({status: 200});
       //TODO clear out elements inside the boxes
@@ -47,6 +55,9 @@ chrome.runtime.onMessage.addListener(
         if(NextEp(temp,title,arrayOfUrls[i][episodeColumn]))
         {
           arrayOfUrls[i][episodeColumn]++;
+           chrome.storage.sync.set({"savedAnimes": JSON.stringify(arrayOfUrls)}, function() {
+          log("setting savedAnime NewEp to "+ JSON.stringify(arrayOfUrls));
+          });
           break;
         }
       }
@@ -56,13 +67,29 @@ chrome.runtime.onMessage.addListener(
     } // close if
     else;
   })
-
+chrome.storage.onChanged.addListener(function(changes, namespace) {
+    if (changes["savedAnimes"]) {
+      valueChanged(changes["savedAnimes"]);
+      console.log("Storage change: "+JSON.stringify(changes["savedAnimes"]));
+      console.log("Storage change: "+JSON.stringify(changes["savedAnimes"].newValue));
+      debugChanges(changes, namespace);
+    }
+  });
+function debugChanges(changes, namespace) {
+    for (key in changes) {
+      console.log('Storage change: key='+key+' value='+JSON.stringify(changes[key]));
+    }
+  }
+function valueChanged(arrayOfUrls)
+{
+   localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+}
 function NextEp(url, title, ep)
 {
     var words = [];
-title = title.toLowerCase();
-words =title.split(new RegExp("\\s+"));
-//finds a part of name and creates a substring from where that part of the url starts and the remainder of url
+  title = title.toLowerCase();
+  words =title.split(new RegExp("\\s+"));
+  //finds a part of name and creates a substring from where that part of the url starts and the remainder of url
   for (var i = 0; i < words.length; i++) 
   {
     
@@ -73,8 +100,8 @@ words =title.split(new RegExp("\\s+"));
     else
        return false;
   }
-//looks for episode then episode # by creating substrings
-//if episode isn't found then it just looks for episode number to account for websites that don't write in episode
+  //looks for episode then episode # by creating substrings
+  //if episode isn't found then it just looks for episode number to account for websites that don't write in episode
     if(url.indexOf("episode") != -1)
     {
        url = url.substring(url.indexOf("episode")+ "episode".length, url.length);

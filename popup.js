@@ -54,6 +54,9 @@ $(document).ready( function() {
       var counter =$('.container .table .btn-toolbar .btn-group .btn').filter(".disabled").filter("#"+id);
       counter.html(--arrayOfUrls[id][1])
       localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+       chrome.storage.sync.set({"savedAnimes": JSON.stringify(arrayOfUrls)}, function() {
+          log("Subract ep:  "+ JSON.stringify(arrayOfUrls));
+        });
      }
      else if($(e.currentTarget).text() == "+")
      {
@@ -62,6 +65,9 @@ $(document).ready( function() {
         var counter =$('.container .table .btn-toolbar .btn-group .btn').filter(".disabled").filter("#"+id);
          counter.html(++arrayOfUrls[id][1])
         localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+        chrome.storage.sync.set({"savedAnimes": JSON.stringify(arrayOfUrls)}, function() {
+          log("add ep:  "+ JSON.stringify(arrayOfUrls));
+        });
      }
      else if($(e.currentTarget).text() == "X")
      {
@@ -70,6 +76,9 @@ $(document).ready( function() {
         arrayOfUrls.splice(id, 1);
         localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
         $('tr#' + id).remove();
+        chrome.storage.sync.set({"savedAnimes": JSON.stringify(arrayOfUrls)}, function() {
+          log("Delete Anime:  "+ JSON.stringify(arrayOfUrls));
+        });
      }
     else;
     

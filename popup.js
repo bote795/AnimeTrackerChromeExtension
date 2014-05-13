@@ -10,13 +10,14 @@ $(document).ready( function() {
   //TODO 
   //Add a numbering system to see how many current animes are you watching
   //Add a sorting my first letter system
-  arrayOfUrls.sort();
-  localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
-  for (var i = 0; i < arrayOfUrls.length; i++) {
-    var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1] );
-    $target.append(string);
+  if (arrayOfUrls.length > 0) {
+    arrayOfUrls.sort();
+    localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+    for (var i = 0; i < arrayOfUrls.length; i++) {
+      var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1] );
+      $target.append(string);
+    }
   }
-
   //add anime form
   $( "form" ).submit(function( event ) {
   var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);

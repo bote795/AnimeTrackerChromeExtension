@@ -36,6 +36,9 @@ $(document).ready( function() {
       {
         arrayOfUrls.unshift(temp);
         localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+        chrome.storage.sync.set({"savedAnimes": localStorage["savedAnimes"]}, function() {
+      log("setting myValue to "+localStorage["savedAnimes"]);
+    });
         redraw();
         $('form')[0].reset()
       }

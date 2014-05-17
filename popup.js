@@ -71,6 +71,7 @@ $(document).ready( function() {
         arrayOfUrls.splice(id, 1);
         localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
         $('tr#' + id).remove();
+        redraw();
      }
     else;
     

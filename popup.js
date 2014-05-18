@@ -5,7 +5,7 @@ $(document).ready( function() {
   //allow user to add anime ep they are in by editing the number
   var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
   var $target = $('.container .table > tbody');
-
+  
   //adds in the rows for each anime
   //TODO 
   //Add a numbering system to see how many current animes are you watching
@@ -16,7 +16,8 @@ $(document).ready( function() {
     var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1] );
     $target.append(string);
   }
-
+  var myVar = setTimeout(function(){getFeed(); clearTimeout(myVar);},3000)
+  
   //add anime form
   $( "form" ).submit(function( event ) {
   var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);

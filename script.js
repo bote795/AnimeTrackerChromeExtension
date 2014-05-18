@@ -1,6 +1,11 @@
 ///this makes it work when website loading and fully loaded
 (function($) {
-    
+   
+  
+  
+
+
+
     var jqReady = $.Deferred();
     // Bind doc ready to my deferred object
     $(document).bind("ready", jqReady.resolve);
@@ -23,7 +28,8 @@
           body(e);
         }
        });
-        
+         //30min = 1800000 milliseconds
+        setInterval(function(){getFeed();},1800000)
        
     });
     

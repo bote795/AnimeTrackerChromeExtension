@@ -47,6 +47,7 @@ chrome.runtime.onMessage.addListener(
         if(NextEp(temp,title,arrayOfUrls[i][episodeColumn]))
         {
           arrayOfUrls[i][episodeColumn]++;
+          arrayOfUrls[i][2]=0;
           break;
         }
       }

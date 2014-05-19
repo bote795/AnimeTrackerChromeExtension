@@ -4,13 +4,13 @@ var query = 'select * from html where url ="'+ hi +'" and xpath="//div[@class=\'
 var yqlAPI = 'https://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + ' &format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=?';
 var updates = [];
 var gotA, gotB, gotC, gotD;
-var eplog = JSON.parse(localStorage["savedAnimes"]);
 
 var gogoAnime1 = []; var lovemyAnime1 = []; var animeFreak1 = []; var animeSeason1 = [];
 //http://notifyjs.com/
-
 function isUp(updates)
 {
+  var eplog = JSON.parse(localStorage["savedAnimes"]);
+
 //switch for loops for implementation  
  for(var e = 0; e< eplog.length; e++)
   {
@@ -25,6 +25,12 @@ function isUp(updates)
              $.notify(x, "success");
               break;
            }
+           else if(typeof NextEp(updates[i][0],eplog[e][0],eplog[e][1]) === 'undefined')
+          {        
+                console.log("NextEp: undefined returned")    
+            console.log(updates[i][0] +" : "+ eplog[e][0]+" : "+eplog[e][1] )
+          
+          }
       }
   }
   localStorage["savedAnimes"] = JSON.stringify(eplog);
@@ -35,6 +41,10 @@ function NextEp(url, title, ep)
     var words = [];
 title = title.toLowerCase();
 words =title.split(new RegExp("\\s+"));
+  if(typeof ep !== "number")
+    {
+      ep = parseInt(ep);
+    }
 //finds a part of name and creates a substring from where that part of the url starts and the remainder of url
   for (var i = 0; i < words.length; i++) 
   {
@@ -55,6 +65,8 @@ words =title.split(new RegExp("\\s+"));
         {
           return true;
         }
+        else
+          return false;
     }
     else if(url.indexOf(ep+1)!= -1)
         {

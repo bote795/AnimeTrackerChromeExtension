@@ -61,6 +61,10 @@ chrome.runtime.onMessage.addListener(
 function NextEp(url, title, ep)
 {
     var words = [];
+    if(typeof ep !== "number")
+    {
+      ep = parseInt(ep);
+    }
 title = title.toLowerCase();
 words =title.split(new RegExp("\\s+"));
 //finds a part of name and creates a substring from where that part of the url starts and the remainder of url

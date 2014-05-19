@@ -35,6 +35,7 @@ $(document).ready( function() {
     //checks for duplicate if so dont insert
       if(!duplicate(temp[0]))
       {
+        temp.push(0);
         arrayOfUrls.unshift(temp);
         localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
         redraw();
@@ -54,6 +55,7 @@ $(document).ready( function() {
       var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
       var counter =$('.container .table .btn-toolbar .btn-group .btn').filter(".disabled").filter("#"+id);
       counter.html(--arrayOfUrls[id][1])
+      arrayOfUrls[id][2]=0;
       localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
      }
      else if($(e.currentTarget).text() == "+")
@@ -62,6 +64,7 @@ $(document).ready( function() {
         var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
         var counter =$('.container .table .btn-toolbar .btn-group .btn').filter(".disabled").filter("#"+id);
          counter.html(++arrayOfUrls[id][1])
+        arrayOfUrls[id][2]=0;
         localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
      }
      else if($(e.currentTarget).text() == "X")
@@ -71,6 +74,7 @@ $(document).ready( function() {
         arrayOfUrls.splice(id, 1);
         localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
         $('tr#' + id).remove();
+        redraw();
      }
     else;
     

@@ -48,6 +48,7 @@ chrome.runtime.onMessage.addListener(
         {
           arrayOfUrls[i][episodeColumn]++;
           arrayOfUrls[i][2]=0;
+          arrayOfUrls[i][3]="url";
           break;
         }
       }
@@ -55,6 +56,12 @@ chrome.runtime.onMessage.addListener(
       sendResponse({status: 200});
 
     } // close if
+    else if(request.method === "UpdateRequest"){ //start of update request
+      console.log("hi");
+      getFeed();
+      sendResponse({status: 200});
+
+    }//close updateRequest
     else;
   })
 

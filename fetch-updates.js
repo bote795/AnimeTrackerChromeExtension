@@ -21,6 +21,7 @@ function isUp(updates)
              var temp="New Episode is up for ";
              var x ="";
              eplog[e][2]=1;
+             eplog[e][3]=updates[i][2];
              x=x.concat(temp,eplog[e][0]);
              $.notify(x, "success");
               break;
@@ -99,8 +100,10 @@ $.getJSON(yqlAPI, function(r){
     $.each(r.query.results.li, function(){ 
       if(typeof this.font !== 'undefined')
           {        
-            gogoAnime1.push([this.a.href,this.font.content]);
-          
+            if(this.font.content !== "(Raw)")
+             {
+                gogoAnime1.push([this.a.href,this.font.content, this.a.href]);
+             }
           }
     });
    gotFollowersOfA(gogoAnime1);
@@ -125,7 +128,7 @@ $.getJSON(yqlAPI, function(r){
     $.each(r.query.results.a, function(){ 
          if(typeof this.href !== 'undefined')
           {
-          lovemyAnime1.push([this.href, "(Sub)"]);
+            lovemyAnime1.push([this.href, "(Sub)", ("http://www.lovemyanime.net"+this.href)]);
           }
     });
   gotFollowersOfB(lovemyAnime1);
@@ -150,7 +153,7 @@ $.getJSON(yqlAPI, function(r){
     $.each(r.query.results.a, function(){ 
       if(typeof this.href !== 'undefined')
           {
-          animeFreak1.push([this.href, "(Sub)"]);
+            animeFreak1.push([this.href, "(Sub)" , ("http://www.animefreak.tv"+this.href)]);
           }
     });
    gotFollowersOfC(animeFreak1);
@@ -177,7 +180,7 @@ $.getJSON(yqlAPI, function(r){
       x++;
        if(typeof this.href !== 'undefined' && x%3 ===0)
           {
-             animeSeason1.push([this.href, "(Sub)"]);
+             animeSeason1.push([this.href, "(Sub)", ("http://www.animeseason.com"+this.href)]);
             x=0;
           }
     });

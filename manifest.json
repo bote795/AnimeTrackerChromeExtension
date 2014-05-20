@@ -13,7 +13,7 @@
   ],
   
   "background": {
-    "scripts": ["notify.min.js", "eventPage.js" , "fetch-updates.js"],
+    "scripts": ["jquery-2.0.2.min.js", "notify.min.js", "eventPage.js" , "fetch-updates.js"],
     "persistent": false
   },
   "content_security_policy": "script-src 'self' https://query.yahooapis.com/; object-src 'self' " ,

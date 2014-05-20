@@ -13,7 +13,7 @@ $(document).ready( function() {
   arrayOfUrls.sort();
   localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
   for (var i = 0; i < arrayOfUrls.length; i++) {
-    var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1] );
+    var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3]);
     $target.append(string);
   }
   var myVar = setTimeout(function(){getFeed(); clearTimeout(myVar);},3000)
@@ -36,6 +36,7 @@ $(document).ready( function() {
       if(!duplicate(temp[0]))
       {
         temp.push(0);
+        temp.push("url");
         arrayOfUrls.unshift(temp);
         localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
         redraw();
@@ -56,7 +57,9 @@ $(document).ready( function() {
       var counter =$('.container .table .btn-toolbar .btn-group .btn').filter(".disabled").filter("#"+id);
       counter.html(--arrayOfUrls[id][1])
       arrayOfUrls[id][2]=0;
+      arrayOfUrls[id][3]="url";
       localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+      redraw();
      }
      else if($(e.currentTarget).text() == "+")
      {
@@ -65,7 +68,9 @@ $(document).ready( function() {
         var counter =$('.container .table .btn-toolbar .btn-group .btn').filter(".disabled").filter("#"+id);
          counter.html(++arrayOfUrls[id][1])
         arrayOfUrls[id][2]=0;
+        arrayOfUrls[id][3]="url";
         localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+        redraw();
      }
      else if($(e.currentTarget).text() == "X")
      {
@@ -80,9 +85,10 @@ $(document).ready( function() {
     
   });
 });
-function tableRow(i, title, ep)
+function tableRow(i, title, ep, newep, url)
 {
-  return "<tr id="+ i +">"+
+var string= "";
+  string = "<tr id="+ i +">"+
    "<td>" + (i+1) +". "+ title + "</td>"+
    "<td>"+
     "<div class='btn-toolbar'>"+
@@ -91,10 +97,15 @@ function tableRow(i, title, ep)
         "<button type='button' class='btn btn-default disabled' id="+ i +">"+ ep +"</button>"+
         "<button type='button' class='btn btn-default' id="+ i +">+</button>"+
         "<button type='button' class='btn btn-default' id="+ i +">X</button>"+
-      "</div>"+
-    "</div>"+
+      "</div>";
+  if(newep && url !== "url")
+    {
+       string +="<a href='"+ url +"' target='_newtab'><span class='badge'>New</span></a>";
+    }
+  string +="</div>"+
     "</td>"+
 "</tr>";
+  return string;
 }
  function duplicate(item)
  {
@@ -115,7 +126,7 @@ function redraw()
    $target.empty();
    for (var i = 0; i < arrayOfUrls.length; i++) 
    {
-      var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1] );
+      var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3]);
       $target.append(string);
    }
 }

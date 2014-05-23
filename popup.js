@@ -2,21 +2,20 @@
 $(document).ready( function() {
   //TODO 
   //use an autocompletefeature to complete anime name
-  //allow user to add anime ep they are in by editing the number
   var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
   var $target = $('.container .table > tbody');
-  
+
+  var spintarget = document.getElementById('foo');
+  var spinner = new Spinner().spin(spintarget);
+
   //adds in the rows for each anime
-  //TODO 
-  //Add a numbering system to see how many current animes are you watching
-  //Add a sorting my first letter system
   arrayOfUrls.sort();
   localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
   for (var i = 0; i < arrayOfUrls.length; i++) {
     var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3]);
     $target.append(string);
   }
-  var myVar = setTimeout(function(){getFeed(); clearTimeout(myVar);},3000)
+  var myVar = setTimeout(function(){getFeed(); clearTimeout(myVar); spinner.stop()},3000)
   
   //add anime form
   $( "form" ).submit(function( event ) {

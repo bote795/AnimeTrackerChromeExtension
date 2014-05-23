@@ -10,7 +10,6 @@ var gogoAnime1 = []; var lovemyAnime1 = []; var animeFreak1 = []; var animeSeaso
 function isUp(updates)
 {
   var eplog = JSON.parse(localStorage["savedAnimes"]);
-
 //switch for loops for implementation  
  for(var e = 0; e< eplog.length; e++)
   {
@@ -79,10 +78,10 @@ words =title.split(new RegExp("\\s+"));
 
 function getFeed()
 {
-  gogoAnime();
   lovemyAnime();
-  animeFreak();
   animeSeason();
+  animeFreak();
+  gogoAnime(); 
 }
 function gotFollowersOfA(data)
 {
@@ -188,12 +187,12 @@ $.getJSON(yqlAPI, function(r){
 });
 }
 function Sync(){
-  updates.push.apply(updates, gogoAnime1);
   updates.push.apply(updates, lovemyAnime1);
-  updates.push.apply(updates, animeFreak1);
   updates.push.apply(updates, animeSeason1);
+  updates.push.apply(updates, animeFreak1);
+  updates.push.apply(updates, gogoAnime1);
   isUp(updates);
-  reset();
+  reset(); 
 }
 function reset(){
    gotA = false;

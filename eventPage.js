@@ -57,7 +57,6 @@ chrome.runtime.onMessage.addListener(
 
     } // close if
     else if(request.method === "UpdateRequest"){ //start of update request
-      console.log("hi");
       getFeed();
       sendResponse({status: 200});
 

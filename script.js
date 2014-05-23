@@ -65,10 +65,20 @@ function body(e){
 }
 function UpdateRequest(){
   chrome.runtime.sendMessage({method: "UpdateRequest"},
+    // 1 min = 60000 miliseconds
+    //Date.now() = miliseconds
         function (response) {
-          if (response.status === 200) {
-            console.log("it worked");
+           var lastError = chrome.runtime.lastError;
+            if (response.status === 200) {
+              var timestamp = Date.now();
+            console.log("Looked for New Eps: "+ timestamp);
            // $(e.target).css("color", "green");
           }
+            else if (lastError) {
+                console.log(lastError.message);
+                // 'Could not establish connection. Receiving end does not exist.'
+                return;
+            }
+         
         });
 }

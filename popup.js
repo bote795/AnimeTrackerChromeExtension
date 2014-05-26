@@ -15,7 +15,14 @@ $(document).ready( function() {
     var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3]);
     $target.append(string);
   }
-  var myVar = setTimeout(function(){getFeed(); clearTimeout(myVar); spinner.stop()},3000)
+  var myVar = setTimeout(
+    function()
+    {
+      getFeed(); 
+      clearTimeout(myVar); 
+      spinner.stop(); 
+      redraw();
+    },3000)
   
   //add anime form
   $( "form" ).submit(function( event ) {
@@ -29,7 +36,10 @@ $(document).ready( function() {
       {
         return;
       }
-          temp.push(field.value);
+      var EliminateWhiteSpace = field.value;
+      EliminateWhiteSpace = EliminateWhiteSpace.replace(/\s+\S*$/, "")
+
+          temp.push(EliminateWhiteSpace);
     });
     //checks for duplicate if so dont insert
       if(!duplicate(temp[0]))

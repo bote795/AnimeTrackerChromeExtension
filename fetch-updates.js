@@ -21,8 +21,18 @@ function isUp(updates)
              var x ="";
              eplog[e][2]=1;
              eplog[e][3]=updates[i][2];
-             x=x.concat(temp,eplog[e][0]);
-             $.notify(x, "success");
+             x=x.concat(temp,eplog[e][0]);             
+               var opt = {
+                type: "basic",
+                title: "New Episode",
+                message: x,
+                 iconUrl: "icon.png"
+              }
+              chrome.notifications.create( JSON.stringify({id: e ,url: updates[i][2] }), opt, function() {
+                  console.log("Succesfully created " + e + " notification");
+              });
+              chrome.notifications.onClicked.addListener(notificationClicked);
+            // $.notify(x, "success");
               break;
            }
            else if(typeof NextEp(updates[i][0],eplog[e][0],eplog[e][1]) === 'undefined')
@@ -35,7 +45,19 @@ function isUp(updates)
   }
   localStorage["savedAnimes"] = JSON.stringify(eplog);
 }
-
+function notificationClicked(ID) {
+  var x = JSON.parse(ID);
+  console.log("clicked:"+parseInt(x.id));
+  window.open(x.url);
+  chrome.runtime.sendMessage({method: "EpUpdate",
+                                  sentUrl: x.url,
+                                  title: "x" },
+        function (response) {
+          if (response.status === 200) {
+           // $(e.target).css("color", "green");
+          }
+        });
+}
 function NextEp(url, title, ep)
 {
     var words = [];

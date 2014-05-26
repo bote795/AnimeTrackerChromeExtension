@@ -1,12 +1,11 @@
 ///this makes it work when website loading and fully loaded
 (function($) {
-    
+   
     var jqReady = $.Deferred();
     // Bind doc ready to my deferred object
     $(document).bind("ready", jqReady.resolve);
     // Check to see is doc is ready
     if(jqReady.state() !== 'resolved'){
-      
         $('a').on('click', function(e) {
          if (isSimpleClick(e)) {
           body(e);
@@ -14,19 +13,20 @@
        });
         
     }
-        
     $.when(jqReady).then(function () {
         // Code here will run when doc is ready/ state === 'resolved'
-        
          $('a').on('click', function(e) {
          if (isSimpleClick(e)) {
           body(e);
         }
        });
-        
-       
+
     });
-    
+    // Or create an HTML notification:
+
+    //30min = 1800000 milliseconds
+    //UpdateRequest();
+  setInterval(function(){UpdateRequest();},1800000);
 })(jQuery);
 var isSimpleClick = function (event) {
   return (
@@ -61,4 +61,24 @@ function body(e){
           }
         });
   }
+}
+function UpdateRequest(){
+  chrome.runtime.sendMessage({method: "UpdateRequest"},
+    // 1 min = 60000 miliseconds
+    //Date.now() = miliseconds
+        function (response) {
+           var lastError = chrome.runtime.lastError;
+            if (response.status === 200) 
+            {
+              var timestamp = Date.now();
+              console.log("Looked for New Eps: "+ timestamp);
+              // $(e.target).css("color", "green");
+          }
+            else if (lastError) {
+                console.log(lastError.message);
+                // 'Could not establish connection. Receiving end does not exist.'
+                return;
+            }
+         
+        });
 }

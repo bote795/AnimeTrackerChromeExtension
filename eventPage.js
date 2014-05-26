@@ -47,6 +47,8 @@ chrome.runtime.onMessage.addListener(
         if(NextEp(temp,title,arrayOfUrls[i][episodeColumn]))
         {
           arrayOfUrls[i][episodeColumn]++;
+          arrayOfUrls[i][2]=0;
+          arrayOfUrls[i][3]="url";
           break;
         }
       }
@@ -54,12 +56,21 @@ chrome.runtime.onMessage.addListener(
       sendResponse({status: 200});
 
     } // close if
+    else if(request.method === "UpdateRequest"){ //start of update request
+      getFeed();
+      sendResponse({status: 200});
+
+    }//close updateRequest
     else;
   })
 
 function NextEp(url, title, ep)
 {
     var words = [];
+    if(typeof ep !== "number")
+    {
+      ep = parseInt(ep);
+    }
 title = title.toLowerCase();
 words =title.split(new RegExp("\\s+"));
 //finds a part of name and creates a substring from where that part of the url starts and the remainder of url

@@ -26,10 +26,20 @@
   "permissions": [
           "storage",
           "http://*/",
-          "notifications"
+          "notifications",
+          "identity", 
+          "https://accounts.google.com/*", 
+          "https://www.googleapis.com/*"
         ],
    "web_accessible_resources": [
    "jquery-2.0.2.min.map"
-   ]
+   ],
+   "oauth2": {
+    "client_id": "733573676945-2akdm236qbfcdd9agbhin44ld26jks9o.apps.googleusercontent.com
+",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive"
+    ]
+  }
   
 }

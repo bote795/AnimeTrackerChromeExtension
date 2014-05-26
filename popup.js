@@ -13,7 +13,7 @@ $(document).ready( function() {
     arrayOfUrls.sort();
     localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
     for (var i = 0; i < arrayOfUrls.length; i++) {
-      var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1] );
+      var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3]);
       $target.append(string);
     }
   }

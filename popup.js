@@ -5,19 +5,22 @@ $(document).ready( function() {
   var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
   var $target = $('.container .table > tbody');
 
-  var spintarget = document.getElementById('foo');
-  var spinner = new Spinner().spin(spintarget);
+ 
 
-  //adds in the rows for each anime
+  
   if (arrayOfUrls.length > 0) {
+    //adds spinner
+     var spintarget = document.getElementById('foo');
+     var spinner = new Spinner().spin(spintarget);
+     //adds in the rows for each anime
     arrayOfUrls.sort();
     localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
     for (var i = 0; i < arrayOfUrls.length; i++) {
       var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3]);
       $target.append(string);
     }
-  }
-  var myVar = setTimeout(
+    //check for new eps
+      var myVar = setTimeout(
     function()
     {
       getFeed(); 
@@ -25,6 +28,8 @@ $(document).ready( function() {
       spinner.stop(); 
       redraw();
     },3000)
+  }
+
     //add anime form
   $( "form" ).submit(function( event ) {
   var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);

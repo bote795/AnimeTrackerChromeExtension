@@ -23,10 +23,18 @@ $(document).ready( function() {
       var myVar = setTimeout(
     function()
     {
-      getFeed(); 
-      clearTimeout(myVar); 
-      spinner.stop(); 
-      redraw();
+      $.when
+      ( 
+              getFeed() 
+      ).done
+      ( function()
+        {
+          clearTimeout(myVar); 
+          spinner.stop(); 
+          redraw();
+        }
+      );
+      
     },3000)
   }
 

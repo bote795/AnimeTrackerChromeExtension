@@ -1,6 +1,7 @@
 
 $(document).ready( function() {
   //TODO 
+  //add a feature so that all the animes that have a new ep move up to the top or maybe to a seperate space
   //use an autocompletefeature to complete anime name
   var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
   var $target = $('.container .table > tbody');

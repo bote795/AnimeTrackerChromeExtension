@@ -3,15 +3,52 @@ var xpaths = ['xpath="//div[@class=\'post\']//li"',
 			  'xpath="//div[@class=\'noraml-page_in_box_mid\']//div[@class=\'noraml-page_in_box_mid_link\']//@href"',
 			  'xpath="//div[@class=\'view-content\']//tbody//tr//@href"'
 			  ,'xpath="//div[@id=\'frontpage_left_col\']//@href"'];
+  $.when
+  (
+    // loop through the different websites
     $.when
-      ( 
+      ( function()
+        {
+          query = 'select * from html where url ="'+ urls[i] +'" and '+xpaths[i];
+          var yqlAPI = 'https://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + ' &format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=?';
+            $.getJSON(yqlAPI, function(r){
 
+            if (urls[i] == "http://www.gogoanime.com/") 
+            {
+               $.each(r.query.results.li, function(){ 
+                    if(typeof this.font !== 'undefined')
+                        {        
+                          if(this.font.content !== "(Raw)")
+                           {
+                              updates.push([this.a.href,this.font.content, this.a.href]);
+                           }
+                        }
+                  });
+            }
+            else
+            {
+              $.each(r.query.results.a, function(){ 
+               if(typeof this.href !== 'undefined')
+                {
+                    updates.push([this.href, "(Sub)", (urls[i]+this.href)]);
+                }
+              });
+            }
+          }); //close json
+        }
       ).done
       ( function()
         {
          //finish geting info
         }
       );
+  ).done
+  (
+      function (argument) {
+        // body...
+      }
+  );
+    
 
 
    function function_name (argument) {

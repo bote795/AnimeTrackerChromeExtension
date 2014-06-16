@@ -3,21 +3,34 @@ $(document).ready( function() {
   //TODO 
   //use an autocompletefeature to complete anime name
   var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
-  var $target = $('.container .table > tbody');
-
- 
-
-  
+  //var $target = $('.container .table > tbody');
+  var $target = $('#DefaultTable > tbody');
+  var $NewTableTarget = $("#NewTable > tbody");
   if (arrayOfUrls.length > 0) {
     //adds spinner
      var spintarget = document.getElementById('foo');
      var spinner = new Spinner().spin(spintarget);
+     var NewEp = false; 
      //adds in the rows for each anime
     arrayOfUrls.sort();
     localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
     for (var i = 0; i < arrayOfUrls.length; i++) {
       var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3]);
-      $target.append(string);
+      
+      if( arrayOfUrls[i][2] && arrayOfUrls[i][3] !== "url")
+      {
+        document.getElementById("Title").innerHTML="<h4>New Episode is available!<h4>";
+        document.getElementById("CurrentTable").innerHTML="<h4>Current Anime!<h4>";
+
+        if(!NewEp)
+        {
+          NewEp = true;
+          document.getElementById("NewTable").style.display="table";
+        }
+        $NewTableTarget.append(string);
+      }
+      else
+        $target.append(string);
     }
     //check for new eps
       var myVar = setTimeout(
@@ -137,11 +150,29 @@ var string= "";
 function redraw()
 {
    var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
-   var $target = $("table:first > tbody");
+   var $target = $('#DefaultTable > tbody');
+   //var $target = $("table:first > tbody");
+   var $NewTableTarget = $("#NewTable > tbody");
+   $NewTableTarget.empty();
    $target.empty();
+        var NewEp = false; 
+
    for (var i = 0; i < arrayOfUrls.length; i++) 
    {
       var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3]);
+      if( arrayOfUrls[i][2] && arrayOfUrls[i][3] !== "url")
+      {
+        document.getElementById("Title").innerHTML="<h4>New Episode is available is up!<h4>";
+        document.getElementById("CurrentTable").innerHTML="<h4>Current Anime!<h4>";
+
+        if(!NewEp)
+        {
+           NewEp = true;
+           document.getElementById("NewTable").style.display="table";
+        }
+        $NewTableTarget.append(string);
+      }
+      else
       $target.append(string);
    }
 }

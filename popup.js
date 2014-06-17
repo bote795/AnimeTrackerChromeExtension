@@ -55,8 +55,7 @@ $(document).ready( function() {
         return;
       }
       var EliminateWhiteSpace = field.value;
-      EliminateWhiteSpace = EliminateWhiteSpace.replace(/\s+\S*$/, "")
-
+      EliminateWhiteSpace = EliminateWhiteSpace.trim();
           temp.push(EliminateWhiteSpace);
     });
     //checks for duplicate if so dont insert

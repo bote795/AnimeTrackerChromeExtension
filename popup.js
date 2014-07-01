@@ -32,6 +32,7 @@ $(document).ready( function() {
         $target.append(string);
     }
     //check for new eps
+    
       var myVar = setTimeout(
     function()
     {
@@ -40,6 +41,8 @@ $(document).ready( function() {
       spinner.stop(); 
       redraw();
     },3000)
+    
+   
   }
 
     //add anime form

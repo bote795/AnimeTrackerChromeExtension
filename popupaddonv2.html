@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery.min.js"></script>
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="http://code.jquery.com/jquery-git2.js"></script>
+  <link href="http://ghinda.net/css-toggle-switch/dist/toggle-switch.css
+" rel="stylesheet" type="text/css" />
+  <script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+</head>
+<body>
+  <div class="demo container">
+    <ul class="nav nav-tabs" id="myTab">
+      <li class="active"><a href="#home" data-toggle="tab">Anime List</a></li>
+      <li><a href="#messages" data-toggle="tab">Add Updates Url</a></li>
+      <li><a href="#settings" data-toggle="tab">Settings</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="home">
+        <hr>
+        <!-- home -->
+      </div><!--/tab-pane-->
+      <div class="tab-pane" id="messages">
+        <div class="panel-group" id="accordion">
+          <div class="panel panel-default">
+            <div class="panel-heading" id="foo">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                  Add URL to Updates List
+                </a>
+              </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse">
+              <div class="panel-body">
+                <form id="addUpdates" class="form-horizontal">
+                  <fieldset><!-- fieldset -->
+                    <div class="form-group"><!-- urlField -->
+                      <label for="inputurl" class="col-lg-2 control-label">URL</label>
+                      <div class="col-lg-10">
+                        <input type="text" class="form-control" name="inputurl" placeholder="www.animeseason.com/">
+                      </div>
+                    </div><!-- end urlField -->
+                    <div class="form-group"><!-- form togle -->
+                      <div class="row">
+                        <div class="col-lg-6">
+                          <label class="switch-light progress" onclick="">
+                            <input type="checkbox">
+                            <span>
+                              Type Of Link
+                              <span aria-label="Off" title="Off">HTML</span>
+                              <span aria-label="On" title="On">RSS</span>
+                            </span>
+
+                            <a class="progress-bar"></a>
+                          </label>
+                        </div>
+                        <div class="col-lg-6">
+                          <label class="switch-light progress" onclick="">
+                            <input id="xpath_bool" name="xpath_bool" type="checkbox">
+                            <span>
+                              Custom Xpath
+                              <span aria-label="Off" title="Off">NO</span>
+                              <span aria-label="On" title="On">YES</span>
+                            </span>
+
+                            <a class="progress-bar"></a>
+                          </label>
+                        </div>
+                      </div><!-- end row -->
+                    </div><!-- form toggle end -->  
+                    <div id="xpath"class="form-group hide"><!-- xpathField -->
+                      <label for="inputXPATH" class="col-lg-2 control-label">Custom xpath</label>
+                      <div class="col-lg-10">
+                        <input type="text" class="form-control" name="inputxpath" placeholder="xpath example: '//@href ' is default">
+                      </div>
+                    </div><!--end xpathField -->           
+
+                    <div class="form-group"><!-- form group Submit -->
+                      <div class="col-lg-10 col-lg-offset-2">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </div>
+                    </div><!--end form group Submit -->
+                  </fieldset><!--end fieldset -->
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div> 
+        <!-- messages -->
+      </div><!--/tab-pane-->
+      <div class="tab-pane" id="settings">
+        <!-- settings -->
+        <ul id="sortable" class="list-group">
+          <li id="erick"class="ui-state-default list-group-item"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+          <li id="set_2" class="ui-state-default list-group-item"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+          <li id="set_3" class="ui-state-default list-group-item"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+          <li id="set_4" class="ui-state-default list-group-item"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+          <li id="set_5" class="ui-state-default list-group-item"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+          <li id="set_6" class="ui-state-default list-group-item"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
+          <li id="set_7" class="ui-state-default list-group-item"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+        </ul>
+        <label  class="switch-light progress" onclick="">
+          <input id="updatelist" type="checkbox">
+          <span>
+            Sumbit
+            <span aria-label="Off" title="Off">No</span>
+            <span aria-label="On" title="On">Yes</span>
+          </span>
+          <a class="progress-bar"></a>
+        </label>
+        <!-- settings finished -->
+      </div>
+
+    </div><!--/tab-pane-->
+  </div><!--/tab-content-->
+</div> <!-- container -->
+</body>
+</html>

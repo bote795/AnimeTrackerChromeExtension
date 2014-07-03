@@ -3,6 +3,8 @@ var xpaths = ['xpath="//div[@class=\'post\']//li"',
         'xpath="//div[@class=\'noraml-page_in_box_mid\']//div[@class=\'noraml-page_in_box_mid_link\']//@href"',
         'xpath="//div[@class=\'view-content\']//tbody//tr//@href"'
         ,'xpath="//div[@id=\'frontpage_left_col\']//@href"'];
+var realUrls = ["http://www.lovemyanime.net", "http://www.animefreak.tv", "http://www.animeseason.com", "http://www.gogoanime.com/"];
+
 var updates= [];    
 var i=0;
 function getFeed()
@@ -32,7 +34,7 @@ function getFeed()
                 $.each(r.query.results.a, function(){ 
                  if(typeof this.href !== 'undefined')
                   {
-                      updates.push([this.href, "(Sub)", (urls[i]+this.href)]);
+                      updates.push([this.href, "(Sub)", (realUrls[i]+this.href)]);
                   }
                 }); // close each
               } // close else

@@ -48,7 +48,7 @@
                       <div class="row">
                         <div class="col-lg-6">
                           <label class="switch-light progress" onclick="">
-                            <input type="checkbox">
+                            <input name="linktype" type="checkbox">
                             <span>
                               Type Of Link
                               <span aria-label="Off" title="Off">HTML</span>
@@ -72,13 +72,18 @@
                         </div>
                       </div><!-- end row -->
                     </div><!-- form toggle end -->  
-                    <div id="xpath"class="form-group hide"><!-- xpathField -->
+                    <div id="xpath" class="form-group hide"><!-- xpathField -->
                       <label for="inputXPATH" class="col-lg-2 control-label">Custom xpath</label>
                       <div class="col-lg-10">
                         <input type="text" class="form-control" name="inputxpath" placeholder="xpath example: '//@href ' is default">
                       </div>
                     </div><!--end xpathField -->           
-
+                    <div id="custom" class="form-group hide"><!-- custom -->
+                      <label for="inputcustom" class="col-lg-2 control-label">Custom link</label>
+                      <div class="col-lg-10">
+                        <input type="text" class="form-control" name="urlcustom" placeholder="Custom url for start of /anime-name">
+                      </div>
+                    </div><!--end custom --> 
                     <div class="form-group"><!-- form group Submit -->
                       <div class="col-lg-10 col-lg-offset-2">
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -91,6 +96,19 @@
             </div>
           </div>
         </div> 
+        <div class="datareply"></div>
+        <div id="confirmation" class="col-lg-6 hide">
+          <label class="switch-light progress" onclick="">
+            <input id="readysumbit" type="checkbox">
+            <span>
+              Sumbit
+              <span aria-label="Off" title="Off">NO</span>
+              <span aria-label="On" title="On">YES</span>
+            </span>
+
+            <a class="progress-bar"></a>
+          </label>
+        </div>
         <!-- messages -->
       </div><!--/tab-pane-->
       <div class="tab-pane" id="settings">

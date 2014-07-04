@@ -1,21 +1,45 @@
-var urls = ["http://www.lovemyanime.net/latest-anime-episodes/", "http://www.animefreak.tv/tracker","http://www.animeseason.com/", "http://www.gogoanime.com/"];
-var xpaths = ['xpath="//div[@class=\'noraml-page_in_box_mid\']//div[@class=\'noraml-page_in_box_mid_link\']//@href"',
-        'xpath="//div[@class=\'view-content\']//tbody//tr//@href"'
-        ,'xpath="//div[@id=\'frontpage_left_col\']//@href"','xpath="//div[@class=\'post\']//li"'];
-var realUrls = ["http://www.lovemyanime.net", "http://www.animefreak.tv", "http://www.animeseason.com", "http://www.gogoanime.com/"];
+var urls;
+if (!localStorage["savedUpdateAnimeList"]) 
+{
+  localStorage["savedUpdateAnimeList"]= JSON.stringify(
+  [
+  ["http://www.lovemyanime.net/latest-anime-episodes/",
+  'xpath="//div[@class=\'noraml-page_in_box_mid\']//div[@class=\'noraml-page_in_box_mid_link\']//@href"',
+   "html",true, "http://www.lovemyanime.net"],
+  ["http://www.animefreak.tv/tracker",
+  'xpath="//div[@class=\'view-content\']//tbody//tr//@href"',
+   "html",true, "http://www.animefreak.tv"],
+  ["http://www.animeseason.com/",
+  'xpath="//div[@id=\'frontpage_left_col\']//@href"',
+  "html",true, "http://www.animeseason.com"],
+  ["http://www.gogoanime.com/",
+  'xpath="//div[@class=\'post\']//li"',
+  "html",false, ""],
+   ["http://www.crunchyroll.com/rss/anime",
+  'xpath="/@href"',
+  "rss",false, ""]
+]);
+    urls=JSON.parse(localStorage["savedUpdateAnimeList"]);
+}
+else
+  urls=JSON.parse(localStorage["savedUpdateAnimeList"]);
 var updates= [];    
 var i=0;
 function getFeed()
 {
   if (i < urls.length) 
   {
-      var query = 'select * from html where url ="'+ urls[i] +'" and '+xpaths[i];
+      var query;
+      if (urls[i][2] == "html") 
+          query = 'select * from html where url ="'+ urls[i][0] +'" and '+urls[i][1];
+      else
+          query ='select link from rss where url="'+urls[i][0]+'"';
     var yqlAPI = 'https://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + ' &format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=?';
   $.getJSON(yqlAPI, function(){
       console.log("sucess");
   })
     .success(function(r){
-         if (urls[i] == "http://www.gogoanime.com/") 
+         if (urls[i][0] == "http://www.gogoanime.com/") 
               {
                  $.each(r.query.results.li, function(){ 
                       if(typeof this.font !== 'undefined')
@@ -29,12 +53,34 @@ function getFeed()
               }
               else
               {
-                $.each(r.query.results.a, function(){ 
-                 if(typeof this.href !== 'undefined')
-                  {
-                      updates.push([this.href, "(Sub)", (realUrls[i]+this.href)]);
-                  }
-                }); // close each
+                if (urls[i][2] == "html") 
+                {
+                  $.each(r.query.results.a, function(){ 
+                   if(typeof this.href !== 'undefined')
+                    {
+                      if (urls[i][3]) 
+                        {
+                           updates.push([this.href, "(Sub)", (urls[i][4]+this.href)]);
+                        }
+                        else
+                        {
+                          updates.push([this.href, "(Sub)", this.href]);
+                        }
+                       
+                    }
+                  }); // close each
+
+                }
+                else
+                {
+                  $.each(r.query.results.item, function(){ 
+                    if(typeof this.link !== 'undefined')
+                    {
+                      updates.push([this.link, "(Sub)", (urls[i][4]+this.link)]);
+                    }
+                  }); // close each
+                }
+                
               } // close else
         i++;
          getFeed();

@@ -98,12 +98,30 @@ else
         testLink(updates);
       }
 });
+   $('ul').on('click','.Remove',function(e) {
+    e.preventDefault();
+    var $self= this;
+     if($(e.currentTarget).text() == "x")
+     {
+        console.log("x");
+        $(e.currentTarget).closest('li').remove();
+         var temp=$("#sortable").sortable( "toArray" );
+          var newArray=[];
+          for (var i = 0; i < temp.length; i++) 
+          {
+            newArray.push([urls[temp[i]][0],urls[temp[i]][1],urls[temp[i]][2],urls[temp[i]][3],urls[temp[i]][4]]); 
+          }
+          alert(newArray);
+         localStorage["savedUpdateAnimeList"] = JSON.stringify(newArray);
+     }
+  });
 });//ready
 function create_li(id, data)
 {
   return "<li id='" + id + 
     "' class='ui-state-default list-group-item'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span> " +
-   data +
+   data + 
+   "<button type='button' class='close Remove'  id="+ id +" >x</button>"+
   "</li>";
 }
 function resetAddUpdatesUrl()

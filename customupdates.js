@@ -31,13 +31,13 @@ else
     $("#updatelist").change(function(){
       if ( $(this ).prop( "checked" ))
       {
-           var temp=$("#sortable").sortable( "toArray" );
+          var temp=$("#sortable").sortable( "toArray" );
           var newArray=[];
-  for (var i = 0; i < temp.length; i++) 
-  {
-    newArray.push(urls[temp[i]][0],urls[temp[i]][1],urls[temp[i]][2],urls[temp[i]][3],urls[temp[i]][4]); 
-  }
-        alert(newArray);
+          for (var i = 0; i < temp.length; i++) 
+          {
+            newArray.push([urls[temp[i]][0],urls[temp[i]][1],urls[temp[i]][2],urls[temp[i]][3],urls[temp[i]][4]]); 
+          }
+         localStorage["savedUpdateAnimeList"] = JSON.stringify(newArray);
         setTimeout(function(){$('#updatelist').prop('checked',false);}, 3000); 
       alert("successfully submitted");
       }
@@ -47,15 +47,22 @@ else
     });
   $("#sortable").sortable();
   $("#sortable").disableSelection();
-  $.each( urls, function( index, value ){
-     $("#sortable").append(create_li(index,value[0]));
-  });
+  $('#myTab a[href="#settings"]').click(function (e) {
+    var $target = $("#sortable");
+    urls=JSON.parse(localStorage["savedUpdateAnimeList"]);
+    $target.html("");
+    $.each( urls, function( index, value ){
+       $target.append(create_li(index,value[0]));
+    });
+  })
    $("#readysumbit").change(function(){
       if ( $(this ).prop( "checked" ))
       {
-           var temp= JSON.parse($("#output").html());
+        var temp= JSON.parse($("#output").html());
         setTimeout(function(){$(this).prop('checked',false);}, 3000); 
-      alert("successfully submitted : <br>"+temp);
+        urls.push(temp)
+        localStorage["savedUpdateAnimeList"] = JSON.stringify(urls);
+        alert("successfully submitted : \n"+temp);
         resetAddUpdatesUrl();
       }
     });
@@ -323,6 +330,7 @@ function similarRegex (url, test_path) {
 function isReady (MainUrlTest, temp) {
     $("#confirmation").show();
     var $target = $("#readysumbit");
+    //tested 2nd url either from user input or just mainurl from provided url
     if(MainUrlTest.bool)
     {
       $target.prop({ disabled: false});
@@ -332,9 +340,14 @@ function isReady (MainUrlTest, temp) {
     }
     else
     {
+      //main url typed returned a url so should be workin.
       $target.prop({ disabled: false});
       $("#output").append(JSON.stringify(temp));
         $target.prop('checked',true);
       //add 
+       urls.push(temp)
+       localStorage["savedUpdateAnimeList"] = JSON.stringify(urls);
+       alert("successfully submitted : \n"+temp);
+       resetAddUpdatesUrl();
     }
 }

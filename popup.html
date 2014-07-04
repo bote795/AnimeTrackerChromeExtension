@@ -12,7 +12,7 @@
   <script src="jquery-ui.js"></script>
   <script src="customupdates.js"></script>
   <link rel="stylesheet" type="text/css" href="bootstrap.min.css" media="screen" />
-  <link href="toggle-switch.css" rel="stylesheet" type="text/css" />
+  <link href="toggle-switch.css" rel="stylesheet" type="text/css" media="screen" />
 </head>
 <body>
   <div class="container"><!-- container -->
@@ -115,7 +115,7 @@
                     <div class="form-group"><!-- form togle -->
                       <div class="row">
                         <div class="col-lg-6">
-                          <label class="switch-light progress" onclick="">
+                          <label class="switch-light progress" ><!-- onclick="" -->
                             <input name="linktype" type="checkbox">
                             <span>
                               Type Of Link
@@ -127,7 +127,7 @@
                           </label>
                         </div>
                         <div class="col-lg-6">
-                          <label class="switch-light progress" onclick="">
+                          <label class="switch-light progress" ><!-- onclick="" -->
                             <input id="xpath_bool" name="xpath_bool" type="checkbox">
                             <span>
                               Custom Xpath
@@ -166,7 +166,7 @@
         </div> 
         <div class="datareply"></div>
         <div id="confirmation" class="col-lg-6 hide">
-          <label class="switch-light progress" onclick="">
+          <label class="switch-light progress"><!-- onclick="" -->
             <input id="readysumbit" type="checkbox">
             <span>
               Submit
@@ -184,7 +184,7 @@
         <!-- settings -->
         <ul id="sortable" class="list-group">
         </ul>
-        <label  class="switch-light progress" onclick="">
+        <label  class="switch-light progress"><!-- onclick="" -->
           <input id="updatelist" type="checkbox">
           <span>
             Submit

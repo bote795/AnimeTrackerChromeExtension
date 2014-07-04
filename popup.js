@@ -47,33 +47,37 @@ $(document).ready( function() {
 
     //add anime form
   $( "form" ).submit(function( event ) {
-  var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
-  event.preventDefault();
-  var fieldNumber = 2,
-   str = $( "form" ).serializeArray(),
-    temp = [];
-    jQuery.each( str, function( i, field ) {
-     if(field.value ===null || field.value ==='undefined' || field.value.length == 0)
-      {
-        return;
-      }
-      var EliminateWhiteSpace = field.value;
-      EliminateWhiteSpace = EliminateWhiteSpace.trim();
-          temp.push(EliminateWhiteSpace);
-    });
-    //checks for duplicate if so dont insert
-      if(!duplicate(temp[0]))
-      {
-        temp.push(0);
-        temp.push("url");
-        arrayOfUrls.unshift(temp);
-        localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
-        redraw();
-        $('form')[0].reset()
-      }
-      if(! $("#mutliple").is(":checked"))
-        $('#collapseOne').collapse('hide');
-
+     var self = this;
+    var formId = this.id;
+  if(formId=="addAnime")
+  {
+      var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+      event.preventDefault();
+      var fieldNumber = 2,
+      str = $( "form" ).serializeArray(),
+      temp = [];
+      jQuery.each( str, function( i, field ) {
+       if(field.value ===null || field.value ==='undefined' || field.value.length == 0)
+        {
+          return;
+        }
+        var EliminateWhiteSpace = field.value;
+        EliminateWhiteSpace = EliminateWhiteSpace.trim();
+            temp.push(EliminateWhiteSpace);
+      });
+      //checks for duplicate if so dont insert
+        if(!duplicate(temp[0]))
+        {
+          temp.push(0);
+          temp.push("url");
+          arrayOfUrls.unshift(temp);
+          localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+          redraw();
+          $('form')[0].reset()
+        }
+        if(! $("#mutliple").is(":checked"))
+          $('#collapseOne').collapse('hide');
+  }
 });
   //takes care of buttons for each row(anime)
   $('body').on('click','.container .table .btn-toolbar .btn-group button',function(e) {

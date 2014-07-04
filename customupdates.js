@@ -1,23 +1,29 @@
 $(document).ready(function(){
-  var urls = ["http://www.lovemyanime.net/latest-anime-episodes/", "http://www.animefreak.tv/tracker","http://www.animeseason.com/", "http://www.gogoanime.com/"];
-  var xpaths = ['xpath="//div[@class=\'noraml-page_in_box_mid\']//div[@class=\'noraml-page_in_box_mid_link\']//@href"',
-          'xpath="//div[@class=\'view-content\']//tbody//tr//@href"'
-          ,'xpath="//div[@id=\'frontpage_left_col\']//@href"','xpath="//div[@class=\'post\']//li"'];
-  var realUrls = ["http://www.lovemyanime.net", "http://www.animefreak.tv", "http://www.animeseason.com", "http://www.gogoanime.com/"];
-var urls =[
-["http://www.lovemyanime.net/latest-anime-episodes/",
-'xpath="//div[@class=\'noraml-page_in_box_mid\']//div[@class=\'noraml-page_in_box_mid_link\']//@href"',
- "html",true, "http://www.lovemyanime.net"],
-["http://www.animefreak.tv/tracker",
-'xpath="//div[@class=\'view-content\']//tbody//tr//@href"',
- "html",true, "http://www.animefreak.tv"],
-["http://www.animeseason.com/",
-'xpath="//div[@id=\'frontpage_left_col\']//@href"',
-"html",true, "http://www.animeseason.com"],
-["http://www.gogoanime.com/",
-'xpath="//div[@class=\'post\']//li"',
-"html",false, ""]
-];
+var urls;
+if (!localStorage["savedUpdateAnimeList"]) 
+{
+  localStorage["savedUpdateAnimeList"]= JSON.stringify(
+  [
+  ["http://www.lovemyanime.net/latest-anime-episodes/",
+  'xpath="//div[@class=\'noraml-page_in_box_mid\']//div[@class=\'noraml-page_in_box_mid_link\']//@href"',
+   "html",true, "http://www.lovemyanime.net"],
+  ["http://www.animefreak.tv/tracker",
+  'xpath="//div[@class=\'view-content\']//tbody//tr//@href"',
+   "html",true, "http://www.animefreak.tv"],
+  ["http://www.animeseason.com/",
+  'xpath="//div[@id=\'frontpage_left_col\']//@href"',
+  "html",true, "http://www.animeseason.com"],
+  ["http://www.gogoanime.com/",
+  'xpath="//div[@class=\'post\']//li"',
+  "html",false, ""],
+   ["http://www.crunchyroll.com/rss/anime",
+  'xpath="/@href"',
+  "rss",false, ""]
+]);
+    urls=JSON.parse(localStorage["savedUpdateAnimeList"]);
+}
+else
+  urls=JSON.parse(localStorage["savedUpdateAnimeList"]);
     $("#xpath").hide().removeClass('hide');
     $("#custom").hide().removeClass('hide');
     $("#confirmation").hide().removeClass('hide');

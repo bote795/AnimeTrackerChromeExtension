@@ -28,6 +28,7 @@ else
     $("#custom").hide().removeClass('hide');
     $("#confirmation").hide().removeClass('hide');
     $("#readysumbit").prop({ disabled: true, checked: false });
+    //list of rankings for update list. When sumbit is called
     $("#updatelist").change(function(){
       if ( $(this ).prop( "checked" ))
       {
@@ -42,11 +43,13 @@ else
       alert("successfully submitted");
       }
     });
+    //when custom xpath slider is moved show xpath field
     $("#xpath_bool").change(function(){
         $("#xpath").toggle();
     });
   $("#sortable").sortable();
   $("#sortable").disableSelection();
+  //reload the list of update urls each time the settings tab is opened
   $('#myTab a[href="#settings"]').click(function (e) {
     var $target = $("#sortable");
     urls=JSON.parse(localStorage["savedUpdateAnimeList"]);
@@ -55,6 +58,8 @@ else
        $target.append(create_li(index,value[0]));
     });
   })
+  //sumbit the new url that is going to be add to the list of where to get data from
+  //for new eps
    $("#readysumbit").change(function(){
       if ( $(this ).prop( "checked" ))
       {
@@ -62,7 +67,7 @@ else
         setTimeout(function(){$(this).prop('checked',false);}, 3000); 
         urls.push(temp)
         localStorage["savedUpdateAnimeList"] = JSON.stringify(urls);
-        alert("successfully submitted : \n"+temp);
+        alert("successfully submitted");
         resetAddUpdatesUrl();
       }
     });
@@ -98,9 +103,10 @@ else
         testLink(updates);
       }
 });
+    //delete url from list of urls
    $('ul').on('click','.Remove',function(e) {
-    e.preventDefault();
-    var $self= this;
+      e.preventDefault();
+      var $self= this;
      if($(e.currentTarget).text() == "x")
      {
         console.log("x");
@@ -111,7 +117,7 @@ else
           {
             newArray.push([urls[temp[i]][0],urls[temp[i]][1],urls[temp[i]][2],urls[temp[i]][3],urls[temp[i]][4]]); 
           }
-          alert(newArray);
+          alert("sucessesfully removed");
          localStorage["savedUpdateAnimeList"] = JSON.stringify(newArray);
      }
   });
@@ -134,6 +140,7 @@ function resetAddUpdatesUrl()
     $(".datareply").html("");
 
 }
+//first attempt to check if inputed link is a valid link
 function testLink(temp)
 {
   var query ="";
@@ -291,7 +298,8 @@ function similarRegex (url, test_path) {
     url: "", path: ""};
   }
 }
- 
+ //attempt to check if only the main section of the url typed in or custom url typed
+ //works for fixing the route for the anime given by website
  function addMainUrl(url, path, temp, callback)
 {
   var query;
@@ -345,6 +353,7 @@ function similarRegex (url, test_path) {
              }
       });
 } 
+//filtering already went through link is ready to be submited
 function isReady (MainUrlTest, temp) {
     $("#confirmation").show();
     var $target = $("#readysumbit");

@@ -99,7 +99,6 @@ else
                 updates[4]=self.urlcustom.value;
               }
           }
-        alert(updates);
         testLink(updates);
       }
 });
@@ -220,8 +219,8 @@ function testLink(temp)
                       }
                       else
                         {
+                          $target.addClass('alert alert-dismissable alert-success');                          
                           isReady({bool: false}, temp);
-                          $target.addClass('alert alert-dismissable alert-success');
                         }
                         
                     }
@@ -245,6 +244,7 @@ function testLink(temp)
                 }); // close each
                    if(!test)
                    {
+                      $target.addClass('alert alert-dismissable alert-success');
                       console.log("sucess");
                       cutTest =(r.query.count/2);
                       console.log( r.query.results.item[Math.floor(cutTest)].link);
@@ -391,10 +391,9 @@ function isReady (MainUrlTest, temp) {
       $target.prop({ disabled: false});
       $("#output").append(JSON.stringify(temp));
         $target.prop('checked',true);
-      //add 
        urls.push(temp)
        localStorage["savedUpdateAnimeList"] = JSON.stringify(urls);
-       alert("successfully submitted : \n"+temp);
+       alert("successfully submitted");
        resetAddUpdatesUrl();
     }
 }

@@ -14,7 +14,7 @@ $(document).ready( function() {
     arrayOfUrls.sort();
     localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
     for (var i = 0; i < arrayOfUrls.length; i++) {
-      var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3]);
+      var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3], arrayOfUrls[i][4]);
       
       if( arrayOfUrls[i][2] && arrayOfUrls[i][3] !== "url")
       {
@@ -32,7 +32,6 @@ $(document).ready( function() {
         $target.append(string);
     }
     //check for new eps
-    
       var myVar = setTimeout(
     function()
     {
@@ -47,34 +46,58 @@ $(document).ready( function() {
 
     //add anime form
   $( "form" ).submit(function( event ) {
-  var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
-  event.preventDefault();
-  var fieldNumber = 2,
-   str = $( "form" ).serializeArray(),
-    temp = [];
-    jQuery.each( str, function( i, field ) {
-     if(field.value ===null || field.value ==='undefined' || field.value.length == 0)
-      {
-        return;
-      }
-      var EliminateWhiteSpace = field.value;
-      EliminateWhiteSpace = EliminateWhiteSpace.trim();
-          temp.push(EliminateWhiteSpace);
-    });
-    //checks for duplicate if so dont insert
-      if(!duplicate(temp[0]))
-      {
-        temp.push(0);
-        temp.push("url");
-        arrayOfUrls.unshift(temp);
-        localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
-        redraw();
-        $('form')[0].reset()
-      }
-      if(! $("#mutliple").is(":checked"))
-        $('#collapseOne').collapse('hide');
-
+     var self = this;
+    var formId = this.id;
+  if(formId=="addAnime")
+  {
+      var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+      event.preventDefault();
+      var fieldNumber = 2,
+      str = $( "form" ).serializeArray(),
+      temp = [];
+      jQuery.each( str, function( i, field ) {
+       if(field.value ===null || field.value ==='undefined' || field.value.length == 0)
+        {
+          return;
+        }
+        var EliminateWhiteSpace = field.value;
+        EliminateWhiteSpace = EliminateWhiteSpace.trim();
+            temp.push(EliminateWhiteSpace);
+      });
+      //checks for duplicate if so dont insert
+        if(!duplicate(temp[0]))
+        {
+          temp.push(0);
+          temp.push("url");
+          temp.push("home");
+          arrayOfUrls.unshift(temp);
+          localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+          redraw();
+          $('form')[0].reset()
+        }
+        if(! $("#mutliple").is(":checked"))
+          $('#collapseOne').collapse('hide');
+  }
 });
+$('body').on('submit','form[id=homelink]',function(e) {
+  e.preventDefault();
+   var self = this;
+    //console.log(self.animeHome.value + ":" +self.animeHome.id)
+    if(Boolean(self.animeHome.value))
+   {
+      var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+      arrayOfUrls[self.animeHome.id][4]=self.animeHome.value;
+      localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+      redraw();
+   }
+   else
+   {
+      var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+      arrayOfUrls[self.animeHome.id][4]="home";
+      localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+      redraw();
+   }   
+  });
   //takes care of buttons for each row(anime)
   $('body').on('click','.container .table .btn-toolbar .btn-group button',function(e) {
     e.preventDefault();
@@ -110,30 +133,53 @@ $(document).ready( function() {
         $('tr#' + id).remove();
         redraw();
      }
-    else;
-    
-  });
-});
-function tableRow(i, title, ep, newep, url)
-{
-var string= "";
-  string = "<tr id="+ i +">"+
-   "<td>" + (i+1) +". "+ title + "</td>"+
-   "<td>"+
-    "<div class='btn-toolbar'>"+
-      "<div class='btn-group'>"+
-        "<button type='button' class='btn btn-default' id="+ i +">-</button>"+
-        "<button type='button' class='btn btn-default disabled' id="+ i +">"+ ep +"</button>"+
-        "<button type='button' class='btn btn-default' id="+ i +">+</button>"+
-        "<button type='button' class='btn btn-default' id="+ i +">X</button>"+
-      "</div>";
-  if(newep && url !== "url")
+    else if($(e.currentTarget).text() == "Link")
     {
-       string +="<a href='"+ url +"' target='_newtab'><span class='badge'>New</span></a>";
+        $('[data-toggle="popover"]').popover({
+            html: 'true'});      
     }
-  string +="</div>"+
-    "</td>"+
-"</tr>";
+    
+  });           
+});
+function tableRow(i, title, ep, newep, url, homeurl)
+{
+  var popoverstring = 
+              '<form id=\"homelink\" class=\"form-horizontal\">'+
+                  '<fieldset>' +
+                    '<div class=\"form-group\">'+
+                      '<div class=\"col-lg-3\">'+
+                        '<input type=\"text\" class=\"form-control\" id='+i+' name=\"animeHome\" placeholder=\"Enter animes home url\">'+
+                        '<button type=\"submit\" class=\"btn btn-primary\" >Submit</button>'+
+                      '</div>'+
+                    '</div>'+
+                 ' </fieldset><!--end fieldset -->'+
+              '</form>';
+  var string= "";
+    string = "<tr id="+ i +">"+
+     "<td>" + (i+1) +". ";
+     if(homeurl !== "home")
+      {
+         string +="<a href='"+ homeurl +"' target='_newtab'>"+title+"</a>";
+      }
+      else
+        string +=title;
+      string+= "</td>"+
+     "<td>"+
+      "<div class='btn-toolbar'>"+
+        "<div class='btn-group'>"+
+          "<button type='button' class='btn btn-default' id="+ i +">-</button>"+
+          "<button type='button' class='btn btn-default disabled' id="+ i +">"+ ep +"</button>"+
+          "<button type='button' class='btn btn-default' id="+ i +">+</button>"+
+          "<button type='button' id="+i+" class='btn btn-default' data-container='body' data-toggle='popover' data-content='"+ popoverstring+"'  data-original-title='' title='' data-placement='left' >Link</button>"+
+          "<button type='button' class='btn btn-default' id="+ i +">X</button>"+
+        "</div>";
+    if(newep && url !== "url")
+      {
+         string +="<a href='"+ url +"' target='_newtab'><span class='badge'>New</span></a>";
+      }
+    string +="</div>"+
+      "</td>"+
+  "</tr>";
   return string;
 }
  function duplicate(item)
@@ -159,7 +205,7 @@ function redraw()
 
    for (var i = 0; i < arrayOfUrls.length; i++) 
    {
-      var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3]);
+      var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3],arrayOfUrls[i][4] );
       if( arrayOfUrls[i][2] && arrayOfUrls[i][3] !== "url")
       {
         document.getElementById("Title").innerHTML="<h4>New Episode is available!<h4>";
@@ -176,3 +222,4 @@ function redraw()
       $target.append(string);
    }
 }
+    

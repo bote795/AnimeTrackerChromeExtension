@@ -30,7 +30,7 @@ chrome.runtime.onMessage.addListener(
      }
      //duplication check finished
       if(!duplicate)
-        arrayOfUrls.unshift([temp2, 0]);
+        arrayOfUrls.unshift([temp2, 0, "url", "home"]);
       localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
       sendResponse({status: 200});
       //TODO clear out elements inside the boxes

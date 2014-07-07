@@ -3,7 +3,7 @@
   
   "name": "AnimeTrackerStorage",
   "description": "Keep up to date with your Anime! Add the anime you're watching to the list it'll track what episode you are on and when its up!",
-  "version": "1.5",
+  "version": "1.6",
   "icons": { "16": "icon.png",
            "48": "icon48.png",
           "128": "icon128.png" },    

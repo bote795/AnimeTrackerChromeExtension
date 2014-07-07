@@ -15,10 +15,7 @@ if (!localStorage["savedUpdateAnimeList"])
   "html",true, "http://www.animeseason.com"],
   ["http://www.gogoanime.com/",
   'xpath="//div[@class=\'post\']//li"',
-  "html",false, ""],
-   ["http://www.crunchyroll.com/rss/anime",
-  'xpath="/@href"',
-  "rss",false, ""]
+  "html",false, ""]
 ]);
     urls=JSON.parse(localStorage["savedUpdateAnimeList"]);
 }
@@ -134,10 +131,7 @@ else
           "html",true, "http://www.animeseason.com"],
           ["http://www.gogoanime.com/",
           'xpath="//div[@class=\'post\']//li"',
-          "html",false, ""],
-           ["http://www.crunchyroll.com/rss/anime",
-          'xpath="/@href"',
-          "rss",false, ""]
+          "html",false, ""]
           ]);
    });
 });//ready

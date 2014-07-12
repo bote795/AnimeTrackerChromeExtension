@@ -87,6 +87,8 @@ words =title.split(new RegExp("\\s+"));
   }
 //looks for episode then episode # by creating substrings
 //if episode isn't found then it just looks for episode number to account for websites that don't write in episode
+  var numbers =url.match( numberPattern );
+  if (numbers != null)
     if(url.indexOf("episode") != -1)
     {
        url = url.substring(url.indexOf("episode")+ "episode".length, url.length);
@@ -101,18 +103,6 @@ words =title.split(new RegExp("\\s+"));
         }
     else 
       return false;
+  else
+    return false;
 }
-/*
-var hi = "http://www.gogoanime.com/";
-var query = 'select * from html where url ="'+ hi +'" and xpath=\'//a\'';
-
-var yqlAPI = 'http://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + ' &format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=?';
-
-$.getJSON(yqlAPI, function(r){
-    console.log('links:');
-    $.each(r.query.results.a, function(){ 
-        console.log('----------');
-        console.log(this.href);
-    });
-});
-*/

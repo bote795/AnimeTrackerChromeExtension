@@ -67,6 +67,7 @@ chrome.runtime.onMessage.addListener(
 function NextEp(url, title, ep)
 {
     var words = [];
+    var numberPattern = /\d+/g;
     if(typeof ep !== "number")
     {
       ep = parseInt(ep);
@@ -89,12 +90,12 @@ words =title.split(new RegExp("\\s+"));
     if(url.indexOf("episode") != -1)
     {
        url = url.substring(url.indexOf("episode")+ "episode".length, url.length);
-      if(url.indexOf(ep+1)!= -1)
+      if((ep+1) == parseInt(url.match( numberPattern )[0]))
         {
           return true;
         }
     }
-    else if(url.indexOf(ep+1)!= -1)
+    else if((ep+1) == parseInt(url.match( numberPattern )[0]))
         {
           return true;
         }

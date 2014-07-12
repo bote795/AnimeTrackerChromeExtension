@@ -143,6 +143,7 @@ function NextEp(url, title, ep)
     var words = [];
     title = title.toLowerCase();
     words =title.split(new RegExp("\\s+"));
+    var numberPattern = /\d+/g;
     if(typeof ep !== "number")
     {
       ep = parseInt(ep);
@@ -163,14 +164,14 @@ function NextEp(url, title, ep)
       if(url.indexOf("episode") != -1)
       {
          url = url.substring(url.indexOf("episode")+ "episode".length, url.length);
-        if(url.indexOf(ep+1)!= -1)
+        if((ep+1) == parseInt(url.match( numberPattern )[0]))
           {
             return true;
           }
           else
             return false;
       }
-      else if(url.indexOf(ep+1)!= -1)
+      else if((ep+1) == parseInt(url.match( numberPattern )[0]))
           {
             return true;
           }

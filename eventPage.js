@@ -40,7 +40,7 @@ chrome.runtime.onMessage.addListener(
       var temp= request.sentUrl;
       temp =temp.toLowerCase();
       var episodeColumn = 1;
-      
+      alert("sent to epupdate");
       for (var i = 0; i < arrayOfUrls.length; i++) 
       {
         var title =arrayOfUrls[i][0];
@@ -68,6 +68,7 @@ function NextEp(url, title, ep)
 {
     var words = [];
     var numberPattern = /\d+/g;
+    alert("url: "+url);
     if(typeof ep !== "number")
     {
       ep = parseInt(ep);
@@ -104,5 +105,9 @@ words =title.split(new RegExp("\\s+"));
     else 
       return false;
   else
+  {
+    alert("url end");
     return false;
+  }
+    
 }

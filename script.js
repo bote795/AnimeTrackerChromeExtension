@@ -16,6 +16,7 @@
     $.when(jqReady).then(function () {
         // Code here will run when doc is ready/ state === 'resolved'
          $('a').on('click', function(e) {
+          alert("did it go in");
          if (isSimpleClick(e)) {
           body(e);
         }
@@ -52,6 +53,7 @@ function body(e){
     //TODO run on specific websites only
     //ask if this is bad?for runtime
     else {
+      alert("wtf");
         chrome.runtime.sendMessage({method: "EpUpdate",
                                   sentUrl: e.currentTarget.href,
                                   title: $(e.currentTarget).text() },

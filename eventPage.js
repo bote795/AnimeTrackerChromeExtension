@@ -67,8 +67,6 @@ chrome.runtime.onMessage.addListener(
 function NextEp(url, title, ep)
 {
     var words = [];
-    var numberPattern = /\d+/g;
-    alert("url: "+url);
     if(typeof ep !== "number")
     {
       ep = parseInt(ep);
@@ -88,26 +86,19 @@ words =title.split(new RegExp("\\s+"));
   }
 //looks for episode then episode # by creating substrings
 //if episode isn't found then it just looks for episode number to account for websites that don't write in episode
-  var numbers =url.match( numberPattern );
-  if (numbers != null)
+
     if(url.indexOf("episode") != -1)
     {
        url = url.substring(url.indexOf("episode")+ "episode".length, url.length);
-      if((ep+1) == parseInt(url.match( numberPattern )[0]))
+      if(url.indexOf(ep+1)!= -1)
         {
           return true;
         }
     }
-    else if((ep+1) == parseInt(url.match( numberPattern )[0]))
+    else if(url.indexOf(ep+1)!= -1)
         {
           return true;
         }
     else 
-      return false;
-  else
-  {
-    alert("url end");
-    return false;
-  }
-    
+      return false
 }

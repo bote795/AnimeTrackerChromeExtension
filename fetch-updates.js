@@ -144,7 +144,6 @@ function NextEp(url, title, ep)
     var words = [];
     title = title.toLowerCase();
     words =title.split(new RegExp("\\s+"));
-    var numberPattern = /\d+/g;
     if(typeof ep !== "number")
     {
       ep = parseInt(ep);
@@ -162,29 +161,23 @@ function NextEp(url, title, ep)
       }
     //looks for episode then episode # by creating substrings
     //if episode isn't found then it just looks for episode number to account for websites that don't write in episode
-    var numbers =url.match( numberPattern );
-    if (numbers != null)
       if(url.indexOf("episode") != -1)
       {
          url = url.substring(url.indexOf("episode")+ "episode".length, url.length);
-         //write a test coondition to see if this contains anything before testing it
-         //parseInt(url.match( numberPattern )[0])
 
-        if((ep+1) == parseInt(url.match( numberPattern )[0]))
+        if(url.indexOf(ep+1)!= -1)
           {
             return true;
           }
           else
             return false;
       }
-      else if((ep+1) == parseInt(url.match( numberPattern )[0]))
+      else if(url.indexOf(ep+1)!= -1)
           {
             return true;
           }
       else 
         return false;
-    else
-      return false;
 }
 function reset()
 {

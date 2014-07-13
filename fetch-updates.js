@@ -138,7 +138,6 @@ function notificationClicked(ID) {
           }
         });
 }
-
 function NextEp(url, title, ep)
 {
     var words = [];

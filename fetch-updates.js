@@ -138,10 +138,12 @@ function notificationClicked(ID) {
           }
         });
 }
+
 function NextEp(url, title, ep)
 {
     var words = [];
     title = title.toLowerCase();
+    var numberPattern = /\d+/g;
     words =title.split(new RegExp("\\s+"));
     if(typeof ep !== "number")
     {
@@ -160,23 +162,27 @@ function NextEp(url, title, ep)
       }
     //looks for episode then episode # by creating substrings
     //if episode isn't found then it just looks for episode number to account for websites that don't write in episode
+    var numbers =url.match( numberPattern );
+    if (numbers != null)
       if(url.indexOf("episode") != -1)
       {
          url = url.substring(url.indexOf("episode")+ "episode".length, url.length);
 
-        if(url.indexOf(ep+1)!= -1)
+        if((ep+1) == parseInt(url.match( numberPattern )[0]))
           {
             return true;
           }
           else
             return false;
       }
-      else if(url.indexOf(ep+1)!= -1)
+      else if((ep+1) == parseInt(url.match( numberPattern )[0]))
           {
             return true;
           }
       else 
         return false;
+    else
+      return false;
 }
 function reset()
 {

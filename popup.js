@@ -43,7 +43,7 @@ $(document).ready( function() {
     
    
   }
-
+  
     //add anime form
   $( "form" ).submit(function( event ) {
      var self = this;

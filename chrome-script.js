@@ -15,11 +15,12 @@
     }
     $.when(jqReady).then(function () {
         // Code here will run when doc is ready/ state === 'resolved'
-         $('a').on('click', function(e) {
+        $('body').on('click','a', function(e) {
          if (isSimpleClick(e)) {
           body(e);
         }
        });
+
     });
     // Or create an HTML notification:
    //30min = 1800000 milliseconds

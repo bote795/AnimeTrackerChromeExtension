@@ -11,11 +11,12 @@ function FindTotalEpisodes(i, input_a, callback)
              input_a[i][5]=0;
         if (typeof  input_a[i][5] !== "string" && (input_a[i][5] === input_a[i][1] || input_a[i][5] ===0) ) 
         {
+            var found = false;
             $.getJSON(yqlAPI, function(){
                   //console.log("sucess");
               })
             .success(function(r){
-              var found = false;
+             
               if(r.query.results !== null)
                 {
                     if(typeof r.query.results.ann.anime !== 'undefined')
@@ -44,6 +45,16 @@ function FindTotalEpisodes(i, input_a, callback)
             .fail(function(r){
               console.log("fail");
             });
+        }
+        else if (typeof input_a[i][5] === "string")
+        {
+          i++;
+              FindTotalEpisodes(i,input_a, callback);
+        }
+        else
+        {
+              i++;
+              FindTotalEpisodes(i,input_a, callback);
         }
     }
     else

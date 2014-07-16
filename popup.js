@@ -37,14 +37,17 @@ $(document).ready( function() {
     {
       getFeed(function(eplog){
         redraw();
+
         FindTotalEpisodes(0,eplog,function(data)
         {
+          console.log("finish checking for TotalEps");
+          spinner.stop();
           localStorage["savedAnimes"] = JSON.stringify(data);
           redraw();
         });
       });
       clearTimeout(myVar); 
-      spinner.stop(); 
+       
       redraw();
     },3000)   
   }
@@ -173,8 +176,17 @@ function tableRow(i, title, ep, newep, url, homeurl,totalEps)
       "<div class='btn-toolbar'>"+
         "<div class='btn-group'>"+
           "<button type='button' class='btn btn-default' id="+ i +">-</button>"+
-          "<button type='button' class='btn btn-default disabled' id="+ i +">" +ep;
-          if (typeof  totalEps === "string") 
+          "<button type='button' class='btn btn-default disabled' id="+ i +">";
+          var text="-1";
+          if (typeof  totalEps === "string")
+              text=totalEps.substring(8,totalEps.length)
+          if(ep == 0)
+            string+= "New";
+          else if(ep == parseInt(text))
+            string+= "done";
+          else
+            string+=ep;
+          if (typeof  totalEps === "string" && ep != parseInt(text)) 
           {
 
             string += totalEps;

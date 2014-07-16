@@ -9,7 +9,7 @@ function FindTotalEpisodes(i, input_a, callback)
             var yqlAPI = 'https://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + ' &format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=?';
         if (typeof input_a[i][5] === 'undefined')
              input_a[i][5]=0;
-        if (typeof  input_a[i][5] !== String && (input_a[i][5] === input_a[i][1] || input_a[i][5] ===0) ) 
+        if (typeof  input_a[i][5] !== "string" && (input_a[i][5] === input_a[i][1] || input_a[i][5] ===0) ) 
         {
             $.getJSON(yqlAPI, function(){
                   //console.log("sucess");
@@ -28,7 +28,7 @@ function FindTotalEpisodes(i, input_a, callback)
                                {
                                  console.log(anime);
                                  console.log(this.content);
-                                 input_a[i][5]="out of " + this.content;
+                                 input_a[i][5]=" out of " + this.content;
                                  found =true;
                                  return;
                                }

@@ -39,21 +39,14 @@ $(document).ready( function() {
         redraw();
         FindTotalEpisodes(0,eplog,function(data)
         {
+          localStorage["savedAnimes"] = JSON.stringify(data);
           redraw();
-          console.log(data);
         });
       });
       clearTimeout(myVar); 
       spinner.stop(); 
       redraw();
-    },3000)
-    /*
-      FindTotalEpisodes(0,eplog,function(data)
-        {
-          redraw();
-          console.log(data);
-        });*/
-   
+    },3000)   
   }
   
     //add anime form
@@ -181,8 +174,9 @@ function tableRow(i, title, ep, newep, url, homeurl,totalEps)
         "<div class='btn-group'>"+
           "<button type='button' class='btn btn-default' id="+ i +">-</button>"+
           "<button type='button' class='btn btn-default disabled' id="+ i +">" +ep;
-          if (typeof  totalEps === String) 
+          if (typeof  totalEps === "string") 
           {
+
             string += totalEps;
           }
           string +="</button>"+

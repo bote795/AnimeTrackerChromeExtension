@@ -8,7 +8,7 @@ if (!localStorage["savedUpdateAnimeList"])
    "html",true, "http://www.lovemyanime.net"],
   ["http://www.animefreak.tv/tracker",
   'xpath="//div[@class=\'view-content\']//tbody//tr//@href"',
-   "html",true, "http://www.animefreak.tv"],
+   "html",true, "http://www.animefreak.tv/watch"],
   ["http://www.animeseason.com/",
   'xpath="//div[@id=\'frontpage_left_col\']//@href"',
   "html",true, "http://www.animeseason.com"],
@@ -22,7 +22,7 @@ else
   urls=JSON.parse(localStorage["savedUpdateAnimeList"]);
 var updates= [];    
 var i=0;
-function getFeed()
+function getFeed(callback)
 {
   if (i < urls.length) 
   {
@@ -79,15 +79,15 @@ function getFeed()
                 }              
             } // close else
         i++;
-         getFeed();
+         getFeed(callback);
       }); // close sucess
   }
     else 
-    isUp();
+    isUp(callback);
  
 }
 
-function isUp()
+function isUp(callback)
 {
   var eplog = JSON.parse(localStorage["savedAnimes"]);
   //switch for loops for implementation  
@@ -124,6 +124,8 @@ function isUp()
   }
   localStorage["savedAnimes"] = JSON.stringify(eplog);
   reset();
+ if (typeof callback === 'function') 
+    callback(eplog);
 }
 function notificationClicked(ID) {
   var x = JSON.parse(ID);

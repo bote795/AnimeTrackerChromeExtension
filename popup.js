@@ -14,7 +14,7 @@ $(document).ready( function() {
     arrayOfUrls.sort();
     localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
     for (var i = 0; i < arrayOfUrls.length; i++) {
-      var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3], arrayOfUrls[i][4]);
+      var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3], arrayOfUrls[i][4] ,arrayOfUrls[i][5]);
       
       if( arrayOfUrls[i][2] && arrayOfUrls[i][3] !== "url")
       {
@@ -35,12 +35,24 @@ $(document).ready( function() {
       var myVar = setTimeout(
     function()
     {
-      getFeed(); 
+      getFeed(function(eplog){
+        redraw();
+        FindTotalEpisodes(0,eplog,function(data)
+        {
+          redraw();
+          console.log(data);
+        });
+      });
       clearTimeout(myVar); 
       spinner.stop(); 
       redraw();
     },3000)
-    
+    /*
+      FindTotalEpisodes(0,eplog,function(data)
+        {
+          redraw();
+          console.log(data);
+        });*/
    
   }
   
@@ -141,7 +153,7 @@ $('body').on('submit','form[id=homelink]',function(e) {
     
   });           
 });
-function tableRow(i, title, ep, newep, url, homeurl)
+function tableRow(i, title, ep, newep, url, homeurl,totalEps)
 {
   var popoverstring = 
               '<form id=\"homelink\" class=\"form-horizontal\">'+
@@ -168,7 +180,12 @@ function tableRow(i, title, ep, newep, url, homeurl)
       "<div class='btn-toolbar'>"+
         "<div class='btn-group'>"+
           "<button type='button' class='btn btn-default' id="+ i +">-</button>"+
-          "<button type='button' class='btn btn-default disabled' id="+ i +">"+ ep +"</button>"+
+          "<button type='button' class='btn btn-default disabled' id="+ i +">" +ep;
+          if (typeof  totalEps === String) 
+          {
+            string += totalEps;
+          }
+          string +="</button>"+
           "<button type='button' class='btn btn-default' id="+ i +">+</button>"+
           "<button type='button' id="+i+" class='btn btn-default' data-container='body' data-toggle='popover' data-content='"+ popoverstring+"'  data-original-title='' title='' data-placement='left' >Link</button>"+
           "<button type='button' class='btn btn-default' id="+ i +">X</button>"+
@@ -205,7 +222,7 @@ function redraw()
 
    for (var i = 0; i < arrayOfUrls.length; i++) 
    {
-      var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3],arrayOfUrls[i][4] );
+      var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3],arrayOfUrls[i][4],arrayOfUrls[i][5] );
       if( arrayOfUrls[i][2] && arrayOfUrls[i][3] !== "url")
       {
         document.getElementById("Title").innerHTML="<h4>New Episode is available!<h4>";

@@ -52,7 +52,7 @@ else
     urls=JSON.parse(localStorage["savedUpdateAnimeList"]);
     $target.html("");
     $.each( urls, function( index, value ){
-       $target.append(create_li(index,value[0]));
+       $target.append(create_li(index,value[0],value[3],value[4]));
     });
   })
   //sumbit the new url that is going to be add to the list of where to get data from
@@ -98,7 +98,23 @@ else
           }
         testLink(updates);
       }
+
 });
+  $('body').on('submit','form[id=Updatelink]',function(e) {
+     e.preventDefault();
+    var self = this;
+    var formId = this.id;  // "this" is a reference to the submitted form
+    if(formId == "Updatelink")
+    {
+      urls=JSON.parse(localStorage["savedUpdateAnimeList"]);
+      if(Boolean(self.UpdateUrl.value))
+      {
+        var temp_id = self.UpdateUrl.id;
+        urls[temp_id][4]=self.UpdateUrl.value;
+        localStorage["savedUpdateAnimeList"]= JSON.stringify(urls);
+      }
+    }
+    });
     //delete url from list of urls
    $('ul').on('click','.Remove',function(e) {
       e.preventDefault();
@@ -134,14 +150,43 @@ else
           "html",false, ""]
           ]);
    });
+  $('body').on('click','li button',function(e) {
+    e.preventDefault();
+    if($(e.currentTarget).text() == "StaticLink")
+    {
+        $('[data-toggle="popover"]').popover({
+            html: 'true'});      
+    }
+    
+  }); 
 });//ready
-function create_li(id, data)
+function create_li(id, data, bool,StaticWebsite )
 {
-  return "<li id='" + id + 
+  var popoverstring = 
+              '<form id=\"Updatelink\" class=\"form-horizontal\">'+
+                  '<fieldset>' +
+                    '<div class=\"form-group\">'+
+                      '<div class=\"col-lg-3\">'+
+                        '<input type=\"text\" class=\"form-control\" id='+id+' name=\"UpdateUrl\" placeholder=\"Url for Update\"'+
+                           'value=\"'+StaticWebsite +'\"'+
+                          '>'+
+                        '<button type=\"submit\" class=\"btn btn-primary\" >Submit</button>'+
+                      '</div>'+
+                    '</div>'+
+                 ' </fieldset><!--end fieldset -->'+
+              '</form>';
+  var string = "<li id='" + id + 
     "' class='ui-state-default list-group-item'><span class='ui-icon ui-icon-arrowthick-2-n-s'></span> " +
-   data + 
+   data;
+    if (bool) 
+    {
+      string+="<button type='button' id="+id+" class='btn btn-default' data-container='body' data-toggle='popover' data-content='"+ 
+      popoverstring+"'  data-original-title='' title='' data-placement='left' >StaticLink</button>";
+    }
+    string+=
    "<button type='button' class='close Remove'  id="+ id +" >x</button>"+
   "</li>";
+  return string;
 }
 function resetAddUpdatesUrl()
 {

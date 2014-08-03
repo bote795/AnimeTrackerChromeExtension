@@ -52,6 +52,7 @@ function getFeed(callback)
               {
                 if (urls[i][2] == "html") 
                 {
+                  if (r.query.results != null) 
                   $.each(r.query.results.a, function(){ 
                    if(typeof this.href !== 'undefined')
                     {
@@ -70,6 +71,8 @@ function getFeed(callback)
                 }
                 else
                 {
+                  console.log(urls[i][0]);
+                  if (r.query.results != null) 
                   $.each(r.query.results.item, function(){ 
                     if(typeof this.link !== 'undefined')
                     {

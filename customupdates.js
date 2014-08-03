@@ -54,6 +54,13 @@ else
     $.each( urls, function( index, value ){
        $target.append(create_li(index,value[0],value[3],value[4]));
     });
+    var $target2= $('#favAnimeWebsites');
+    var fav=JSON.parse(localStorage["fav"]);
+    $target2.html("");
+    $.each( fav, function( index, value ){
+       $target2.append(create_li_fav_hist(index,value));
+    });
+
   })
   //sumbit the new url that is going to be add to the list of where to get data from
   //for new eps
@@ -132,6 +139,13 @@ else
           alert("sucessesfully removed");
          localStorage["savedUpdateAnimeList"] = JSON.stringify(newArray);
      }
+     else if ($(e.currentTarget).text() == "Remove")
+     {
+      $(e.currentTarget).closest('li').remove();
+      var fav_array = JSON.parse(localStorage["fav"]);
+      fav_array.splice($(e.currentTarget).closest('li')[0].id,1)
+       localStorage["fav"]= JSON.stringify(fav_array);
+     }
   });
    $('.defaultRestart').click(function(){
       localStorage["savedUpdateAnimeList"]= JSON.stringify(
@@ -160,6 +174,10 @@ else
     
   }); 
 });//ready
+function create_li_fav_hist (id,value) {
+  return "<li id="+id+" class='list-group-item'>"+value+ "<button type='button' class='close Remove'  id="+ id +" >Remove</button></li>";
+}
+//add websites were to check for new eps
 function create_li(id, data, bool,StaticWebsite )
 {
   var popoverstring = 

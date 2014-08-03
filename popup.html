@@ -106,6 +106,13 @@
                 </a>
               </h4>
             </div>
+            <div class="panel-heading" id="ioo">
+              <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                  Add Fav Anime Website
+                </a>
+              </h4>
+            </div>
             <div id="collapseTwo" class="panel-collapse collapse">
               <div class="panel-body">
                 <form id="addUpdates" class="form-horizontal">
@@ -168,6 +175,29 @@
               </form>
 
             </div>
+            <div id="collapseThree" class="panel-collapse collapse">
+              <div class="panel-body">
+                <!--form-->
+                <form id="addFav"class="form-horizontal">
+                  <fieldset><!-- fieldset -->
+                    <div class="form-group"><!-- Main Anime -->
+                      <label for="fav" class="col-lg-2 control-label">Main Anime Link</label>
+                      <div class="col-lg-10">
+                        <input type="text" class="form-control" name="inputfav" placeholder="ex: 'http://www.crunchyroll.com/'">
+                      </div>
+                      <p>ex: 'http://www.crunchyroll.com/' <br> 'from http://www.crunchyroll.com/blue-spring-ride/episode-3-page-3-657035'
+                      </p>
+                    </div><!-- end Main Anime -->
+                    <div class="form-group"><!-- form group Submit -->
+                      <div class="col-lg-10 col-lg-offset-2">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                      </div>
+                    </div><!--end form group Submit -->
+                  </fieldset><!--end fieldset -->              
+              </form>
+              </div>
+              <!--form end-->
+            </div>
           </div>
         </div> 
         <div class="datareply"></div>
@@ -184,6 +214,7 @@
           </label>
         </div>
         <div id="output" class="hide"></div>
+
         <!-- messages -->
       </div><!--/tab-pane-->
       <div class="tab-pane container" id="settings">

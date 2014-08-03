@@ -1,6 +1,12 @@
 if ( !localStorage["savedAnimes"] ) {
   localStorage["savedAnimes"] = JSON.stringify([]);
 }
+if ( !localStorage["fav_history"] ) {
+  localStorage["fav_history"] = JSON.stringify([]);
+}
+if ( !localStorage["fav"] ) {
+  localStorage["fav"] = JSON.stringify([]);
+}
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
@@ -40,7 +46,7 @@ chrome.runtime.onMessage.addListener(
       var temp= request.sentUrl;
       temp =temp.toLowerCase();
       var episodeColumn = 1;
-      
+      var found = false;
       for (var i = 0; i < arrayOfUrls.length; i++) 
       {
         var title =arrayOfUrls[i][0];
@@ -49,10 +55,14 @@ chrome.runtime.onMessage.addListener(
           arrayOfUrls[i][episodeColumn]++;
           arrayOfUrls[i][2]=0;
           arrayOfUrls[i][3]="url";
+          localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+          found=true;
           break;
         }
       }
-      localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+      if (!found)
+        check_fav_history(request.sentUrl);
+
       sendResponse({status: 200});
 
     } // close if
@@ -64,6 +74,24 @@ chrome.runtime.onMessage.addListener(
     else;
   })
 
+function check_fav_history (sentUrl) {
+   var fav_history = JSON.parse(localStorage["fav_history"]);
+      if (containsFav(sentUrl)) 
+      {
+         if (fav_history.length > 5) 
+        {
+          fav_history.splice(0,1);
+          fav_history.push(sentUrl);
+
+        }
+        else
+        {
+          fav_history.push(sentUrl);
+        }
+        localStorage["fav_history"]= JSON.stringify(fav_history);
+        autoAnimeAdd();
+      }
+}
 function NextEp(url, title, ep)
 {
     var words = [];

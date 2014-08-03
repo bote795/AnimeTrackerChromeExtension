@@ -86,6 +86,15 @@ $(document).ready( function() {
         if(! $("#mutliple").is(":checked"))
           $('#collapseOne').collapse('hide');
   }
+  else if (formId == "addFav") 
+  {
+   if(Boolean(self.inputfav.value))
+   {
+        var fav = JSON.parse(localStorage["fav"]);
+        fav.push(self.inputfav.value)
+        localStorage["fav"]= JSON.stringify(fav);
+   }
+  }
 });
 $('body').on('submit','form[id=homelink]',function(e) {
   e.preventDefault();

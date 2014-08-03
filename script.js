@@ -54,9 +54,15 @@ function body(e){
                                   sentUrl: e.currentTarget.href,
                                   title: $(e.currentTarget).text() },
         function (response) {
-          if (response.status === 200) {
-           // $(e.target).css("color", "green");
+          var lastError = chrome.runtime.lastError;
+          if (response.status === 100) {
+          
           }
+           else if (lastError) {
+                console.log(lastError);
+                // 'Could not establish connection. Receiving end does not exist.'
+                return;
+            }
         });
   }
 }
@@ -69,7 +75,7 @@ function UpdateRequest(){
             if (response.status === 200) 
             {
               var timestamp = Date.now();
-              console.log("Looked for New Eps: "+ timestamp);
+              console.log("Looked for New Eps: "+ Date(timestamp));
               // $(e.target).css("color", "green");
           }
             else if (lastError) {

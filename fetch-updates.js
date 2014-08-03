@@ -133,12 +133,7 @@ function notificationClicked(ID) {
   window.open(x.url);
   chrome.runtime.sendMessage({method: "EpUpdate",
                                   sentUrl: x.url,
-                                  title: "x" },
-        function (response) {
-          if (response.status === 200) {
-           // $(e.target).css("color", "green");
-          }
-        });
+                                  title: "x" });
 }
 
 function NextEp(url, title, ep)

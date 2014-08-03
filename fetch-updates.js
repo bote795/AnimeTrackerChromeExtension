@@ -71,7 +71,7 @@ function getFeed(callback)
                 }
                 else
                 {
-                  console.log(urls[i][0]);
+                  console.log(urls[i][0] + " "+ r.query.results);
                   if (r.query.results != null) 
                   $.each(r.query.results.item, function(){ 
                     if(typeof this.link !== 'undefined')

@@ -99,6 +99,7 @@ function autoAnimeAdd()
           fav_history.splice(j, 1);
           console.log(fav_history);
           var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+          nameOfAnime=nameOfAnime.charAt(0).toUpperCase() +nameOfAnime.slice(1, nameOfAnime.length)
           console.log(nameOfAnime);
           arrayOfUrls.push([String(nameOfAnime), episode_number, 0, "url", "home"]);
           console.log(nameOfAnime + " "+ JSON.stringify(episode_number)  + " : 0"  + " : url , home");
@@ -120,17 +121,25 @@ function containsFav (url)
   var titleColumn =0;
   for (var i = fav.length - 1; i >= 0; i--) 
   {
+    //check if we arleady have the url in our list and if it contains one of the urls
      if(url.indexOf(fav[i]) != -1 && $.inArray( url, fav_history ) == -1)
      {
-        url = url.substring(url.indexOf(fav[i])+fav[i].length, url.length);
+        //remove unnecssary stuff from link if it is one of the chosen
         url = filter(url);
-        url = url.replace(/[^a-z0-9\s]/gi, ' ');
-         for (var j = 0; i < arrayOfUrls.length; j++) {
-           if(arrayOfUrls[j][titleColumn] == url)
-           {
-             return false;
+        if (url) 
+        {
+          url = url.replace(/[^a-z0-9\s]/gi, ' ');
+          //check if it already exsists in our list of anime
+           for (var j = 0; j < arrayOfUrls.length; j++) {
+             if(arrayOfUrls[j][titleColumn].toLowerCase() == url)
+             {
+               return false;
+             }
            }
-         }
+        }
+        //else case doesnt contain a number or episode
+        else
+          return false;
         return true;
      }
   }

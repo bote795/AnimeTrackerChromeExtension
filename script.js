@@ -72,7 +72,7 @@ function UpdateRequest(){
     //Date.now() = miliseconds
         function (response) {
            var lastError = chrome.runtime.lastError;
-            if (response.status === 200) 
+            if (response.status === 200) // typeof !== 'undefined'
             {
               var timestamp = Date.now();
               console.log("Looked for New Eps: "+ Date(timestamp));

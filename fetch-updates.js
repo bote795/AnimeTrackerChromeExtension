@@ -50,8 +50,11 @@ function getFeed(callback)
               }
               else
               {
+
                 if (urls[i][2] == "html") 
                 {
+                  //console.log(yqlAPI);
+                  //console.log(r);
                   if (r.query.results != null) 
                   $.each(r.query.results.a, function(){ 
                    if(typeof this.href !== 'undefined')
@@ -72,7 +75,7 @@ function getFeed(callback)
                 else
                 {
                   console.log(urls[i][0] + " "+ r.query.results);
-                  if (r.query.results != null) 
+                  if (r.query.results.item != null) 
                   $.each(r.query.results.item, function(){ 
                     if(typeof this.link !== 'undefined')
                     {

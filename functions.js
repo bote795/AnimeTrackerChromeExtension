@@ -93,6 +93,7 @@ function autoAnimeAdd()
           {
             episode_number=fav_history[j].match( numberPattern )[0];
           }
+          alert(nameOfAnime);
           nameOfAnime=  nameOfAnime.replace(/[^a-z0-9\s]/gi, ' ');
           console.log(nameOfAnime + " :"+episode_number);
           fav_history.splice(i, 1);
@@ -111,8 +112,7 @@ function autoAnimeAdd()
   }
 
 }
-//checks the Fav array for the links and removes it from the string passsed
-//or if its not found return false
+//checks if it contains a fav link and that isnt something already in our anime list
 function containsFav (url) 
 {
   var fav = JSON.parse(localStorage["fav"]);
@@ -122,7 +122,8 @@ function containsFav (url)
   for (var i = fav.length - 1; i >= 0; i--) 
   {
     //check if we arleady have the url in our list and if it contains one of the urls
-     if(url.indexOf(fav[i]) != -1 && $.inArray( url, fav_history ) == -1)
+    //first check: if its found go in and that its not already in the fav_history 
+     if(url.indexOf(fav[i]) != -1 && url != fav[i])
      {
         //remove unnecssary stuff from link if it is one of the chosen
         url = filter(url);
@@ -145,10 +146,13 @@ function containsFav (url)
   }
   return false;
 }
+//checks the Fav array for the links and removes it from the string passsed
+//or if its not found return false
 //filter off  fav link
 function RemoveFavLink (url) {
   var fav = JSON.parse(localStorage["fav"]);
   for (var i = fav.length - 1; i >= 0; i--) {
+        //if not equal to one means it was found
          if(url.indexOf(fav[i]) != -1)
          {
              url = url.substring(url.indexOf(fav[i])+fav[i].length, url.length);

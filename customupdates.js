@@ -81,8 +81,8 @@ else
     var formId = this.id;  // "this" is a reference to the submitted form
     if(formId == "addUpdates")
       {
-        //["url","//@href", "html",false, ""]
-        var updates = new Array("url","//@href", "html",false, "");
+        //["url",'xpath="//@href"', "html",false, ""]
+        var updates = new Array("url",'xpath="//@href"', "html",false, "");
         if(Boolean(self.inputurl.value))
           {
             updates[0]=self.inputurl.value;

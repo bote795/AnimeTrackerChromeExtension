@@ -29,8 +29,9 @@ chrome.runtime.onMessage.addListener(
        }
      }
      //duplication check finished
+     // this is format inside array of urls or each anime title, ep, newep, url, homeurl,totalEps
       if(!duplicate)
-        arrayOfUrls.unshift([temp2, 0, "url", "home"]);
+        arrayOfUrls.unshift([temp2, 0, "url", "home","home"]); // 
       localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
       sendResponse({status: 200});
       //TODO clear out elements inside the boxes

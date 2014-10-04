@@ -50,7 +50,7 @@ function getFeed(callback)
               }
               else
               {
-                if (urls[i][2] == "html") 
+                if (urls[i][2] == "html" && r.query.results !== null) 
                 {
                   $.each(r.query.results.a, function(){ 
                    if(typeof this.href !== 'undefined')

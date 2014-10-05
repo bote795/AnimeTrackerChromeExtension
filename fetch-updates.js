@@ -50,32 +50,35 @@ function getFeed(callback)
               }
               else
               {
-                if (urls[i][2] == "html" && r.query.results !== null) 
+                if(r.query !== 'undefined' && r.query.results !== null)
                 {
-                  $.each(r.query.results.a, function(){ 
-                   if(typeof this.href !== 'undefined')
-                    {
-                      if (urls[i][3]) 
-                        {
-                           updates.push([this.href, "(Sub)", (urls[i][4]+this.href)]);
-                        }
-                        else
-                        {
-                          updates.push([this.href, "(Sub)", this.href]);
-                        }
-                       
-                    }
-                  }); // close each
+                  if (urls[i][2] == "html" ) 
+                  {
+                    $.each(r.query.results.a, function(){ 
+                     if(typeof this.href !== 'undefined')
+                      {
+                        if (urls[i][3]) 
+                          {
+                             updates.push([this.href, "(Sub)", (urls[i][4]+this.href)]);
+                          }
+                          else
+                          {
+                            updates.push([this.href, "(Sub)", this.href]);
+                          }
+                         
+                      }
+                    }); // close each
 
-                }
-                else
-                {
-                  $.each(r.query.results.item, function(){ 
-                    if(typeof this.link !== 'undefined')
-                    {
-                      updates.push([this.link, "(Sub)", (urls[i][4]+this.link)]);
-                    }
-                  }); // close each
+                  }
+                  else
+                  {
+                    $.each(r.query.results.item, function(){ 
+                      if(typeof this.link !== 'undefined')
+                      {
+                        updates.push([this.link, "(Sub)", (urls[i][4]+this.link)]);
+                      }
+                    }); // close each
+                  }
                 }              
             } // close else
         i++;

@@ -75,7 +75,7 @@ else
     if(formId == "addUpdates")
       {
         //["url","//@href", "html",false, ""]
-        var updates = new Array("url",'xpath="//@href"', "html",false, "");
+        var updates = new Array("url","//@href", "html",false, "");
         if(Boolean(self.inputurl.value))
           {
             updates[0]=self.inputurl.value;
@@ -218,6 +218,7 @@ function testLink(temp)
               //error catching
               if(typeof r === 'undefined' ||typeof r.query === 'undefined' || typeof r.query.results === 'undefined'|| r.query.results == null)
                 {
+                  console.log(r);
                   console.log("Error");
                   $target.html("");
                   $target.append("Error");
@@ -430,6 +431,16 @@ function isReady (MainUrlTest, temp) {
       $target.prop({ disabled: false});
       $("#output").append(JSON.stringify(temp));
         $target.prop('checked',true);
+        console.log(temp);
+       if(temp[0] == "http://www.gogoanime.com/")
+       {
+          temp[1]='xpath="//div[@class=\'post\']//li"';
+       }
+       if (temp[1] == "//@href") 
+       {
+        temp[1] = 'xpath="//@href"';
+       }
+
        urls.push(temp)
        localStorage["savedUpdateAnimeList"] = JSON.stringify(urls);
        alert("successfully submitted");

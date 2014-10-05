@@ -75,7 +75,7 @@ else
     if(formId == "addUpdates")
       {
         //["url","//@href", "html",false, ""]
-        var updates = new Array("url","//@href", "html",false, "");
+        var updates = new Array("url",'xpath="//@href"', "html",false, "");
         if(Boolean(self.inputurl.value))
           {
             updates[0]=self.inputurl.value;

@@ -1,3 +1,4 @@
+//listener for requests sent from background scripts
 if ( !localStorage["savedAnimes"] ) {
   localStorage["savedAnimes"] = JSON.stringify([]);
 }

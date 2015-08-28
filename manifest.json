@@ -4,9 +4,9 @@
   "name": "AnimeTrackerStorage",
   "description": "Keep up to date with your Anime! Add the anime you're watching to the list it'll track what episode you are on and when its up!",
   "version": "1.8",
-  "icons": { "16": "icon.png",
-           "48": "icon48.png",
-          "128": "icon128.png" },    
+  "icons": { "16": "assets/icon.png",
+           "48": "assets/icon48.png",
+          "128": "assets/icon128.png" },    
   "content_scripts": [
     {
     "matches": ["<all_urls>"],
@@ -21,7 +21,7 @@
   "content_security_policy": "script-src 'self' https://query.yahooapis.com/; object-src 'self' " ,
 
   "browser_action": {
-    "default_icon": "icon.png",
+    "default_icon": "assets/icon.png",
     "default_popup": "popup.html"
   },
 
@@ -31,7 +31,7 @@
           "notifications"
         ],
    "web_accessible_resources": [
-   "jquery-2.0.2.min.map"
+   "js/3d-party/jquery-2.0.2.min.map"
    ]
   
 }

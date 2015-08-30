@@ -1,3 +1,4 @@
+//file is in charge of "AddUpdatesURL" TAB
 $(document).ready(function(){
 var urls;
 if (!localStorage["savedUpdateAnimeList"]) 

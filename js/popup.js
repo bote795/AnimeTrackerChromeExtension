@@ -54,38 +54,38 @@ $(document).ready( function() {
   
     //add anime form
   $( "form" ).submit(function( event ) {
-     var self = this;
+    var self = this;
     var formId = this.id;
-  if(formId=="addAnime")
-  {
-      var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
-      event.preventDefault();
-      var fieldNumber = 2,
-      str = $( "form" ).serializeArray(),
-      temp = [];
-      jQuery.each( str, function( i, field ) {
-       if(field.value ===null || field.value ==='undefined' || field.value.length == 0)
-        {
-          return;
-        }
-        var EliminateWhiteSpace = field.value;
-        EliminateWhiteSpace = EliminateWhiteSpace.trim();
-            temp.push(EliminateWhiteSpace);
-      });
-      //checks for duplicate if so dont insert
-        if(!duplicate(temp[0]))
-        {
-          temp.push(0);
-          temp.push("url");
-          temp.push("home");
-          arrayOfUrls.unshift(temp);
-          localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
-          redraw();
-          $('form')[0].reset()
-        }
-        if(! $("#mutliple").is(":checked"))
-          $('#collapseOne').collapse('hide');
-  }
+    if(formId=="addAnime")
+    {
+        var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+        event.preventDefault();
+        var fieldNumber = 2,
+        str = $( "form" ).serializeArray(),
+        temp = [];
+        jQuery.each( str, function( i, field ) {
+         if(field.value ===null || field.value ==='undefined' || field.value.length == 0)
+          {
+            return;
+          }
+          var EliminateWhiteSpace = field.value;
+          EliminateWhiteSpace = EliminateWhiteSpace.trim();
+              temp.push(EliminateWhiteSpace);
+        });
+        //checks for duplicate if so dont insert
+          if(!duplicate(temp[0]))
+          {
+            temp.push(0);
+            temp.push("url");
+            temp.push("home");
+            arrayOfUrls.unshift(temp);
+            localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+            redraw();
+            $('form')[0].reset()
+          }
+          if(! $("#mutliple").is(":checked"))
+            $('#collapseOne').collapse('hide');
+    }
 });
 $('body').on('submit','form[id=homelink]',function(e) {
   e.preventDefault();
@@ -107,9 +107,10 @@ $('body').on('submit','form[id=homelink]',function(e) {
    }   
   });
   //takes care of buttons for each row(anime)
-  $('body').on('click','.container .table .btn-toolbar .btn-group button',function(e) {
-    e.preventDefault();
-    //TODO make counter clickable and you can change by a huge range
+  $('body').on('click','.container .table .btn-toolbar .btn-group button',function(e) 
+  {
+     e.preventDefault();
+     //TODO make counter clickable and you can change by a huge range
      if($(e.currentTarget).text() == "-")
      {
       var id = parseInt(e.currentTarget.id);
@@ -141,11 +142,11 @@ $('body').on('submit','form[id=homelink]',function(e) {
         $('tr#' + id).remove();
         redraw();
      }
-    else if($(e.currentTarget).text() == "Link")
-    {
+     else if($(e.currentTarget).text() == "Link")
+     {
         $('[data-toggle="popover"]').popover({
             html: 'true'});      
-    }
+     }
     
   });           
 });
@@ -205,8 +206,8 @@ function tableRow(i, title, ep, newep, url, homeurl,totalEps)
   "</tr>";
   return string;
 }
- function duplicate(item)
- {
+function duplicate(item)
+{
       var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
       var titleColumn =0;
      for (var i = 0; i < arrayOfUrls.length; i++) {

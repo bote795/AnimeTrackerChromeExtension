@@ -63,11 +63,13 @@ $(document).ready( function() {
         var fieldNumber = 2,
         str = $( "form" ).serializeArray(),
         temp = [];
+        //clear up all data coming in from addAnimeForm
         jQuery.each( str, function( i, field ) {
          if(field.value ===null || field.value ==='undefined' || field.value.length == 0)
           {
             return;
           }
+          //remove any white space
           var EliminateWhiteSpace = field.value;
           EliminateWhiteSpace = EliminateWhiteSpace.trim();
               temp.push(EliminateWhiteSpace);

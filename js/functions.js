@@ -60,3 +60,12 @@ function FindTotalEpisodes(i, input_a, callback)
     else
           callback(input_a);
   }
+
+//saves the array given
+function saveAnime (anime) {
+  localStorage["savedAnimes"] = JSON.stringify(anime)
+}
+//returns the savedAnimes in an array format
+function loadAnime(){
+  return JSON.parse(localStorage["savedAnimes"])
+}

@@ -1,4 +1,4 @@
-#AnimeTracker
+#AnimeTracker ![logo](https://github.com/bote795/AnimeTrackerChromeExtension/blob/master/assets/icon128.png)
 This is a public repo of a Anime Tracker chrome extension.
 
 
@@ -16,6 +16,8 @@ You can have a list of anime and it will automatically udpate the episode you ar
 2. being able to tell you when the next episode of an anime you are watching is up  
 3. A link to the website
 4. Ability to add certain custom websites to look from
+
+![logo](https://raw.githubusercontent.com/bote795/AnimeTrackerChromeExtension/master/assets/AnimeTracker.png)
 
 ##Special Thanks
 Thanks to David for his help, since I used all of his code and added ontop of it. This is his cool chrome extension : Its called Url Storage.

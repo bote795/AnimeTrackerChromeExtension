@@ -74,50 +74,50 @@ function loadAnime(){
 //argument is an array
 function FindTotalEpisodesTest (input_a) {
     var deferred = $.Deferred();
-      var anime = input_a[0];
-        anime =encodeURIComponent(anime);
-        url="http://cdn.animenewsnetwork.com/encyclopedia/api.xml?title=~"+anime;
-        query ='select anime from xml where url="'+url+'"';
-        console.log(query);
-            var yqlAPI = 'https://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + ' &format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=?';
-        if (typeof input_a[5] === 'undefined')
-             input_a[5]=0;
-        if (typeof  input_a[5] !== "string" && (input_a[5] === input_a[1] || input_a[5] ===0) ) 
-        {
-            var found = false;
-            $.getJSON(yqlAPI, function(){
-                  //console.log("sucess");
-              })
-            .success(function(r){
-              if(r.query.results !== null)
-                {
-                    if(typeof r.query.results.ann.anime !== 'undefined')
-                   {
-                     $.each(r.query.results.ann.anime.info, function()
-                     { 
-                           if(typeof this.type !== 'undefined')
+    var anime = input_a[0];
+    anime =encodeURIComponent(anime);
+    url="http://cdn.animenewsnetwork.com/encyclopedia/api.xml?title=~"+anime;
+    query ='select anime from xml where url="'+url+'"';
+    console.log(query);
+        var yqlAPI = 'https://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(query) + ' &format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=?';
+    if (typeof input_a[5] === 'undefined')
+         input_a[5]=0;
+    if (typeof  input_a[5] !== "string" && (input_a[5] === input_a[1] || input_a[5] ===0) ) 
+    {
+        var found = false;
+        $.getJSON(yqlAPI, function(){
+              //console.log("sucess");
+          })
+        .success(function(r){
+          if(r.query.results !== null)
+            {
+                if(typeof r.query.results.ann.anime !== 'undefined')
+               {
+                 $.each(r.query.results.ann.anime.info, function()
+                 { 
+                       if(typeof this.type !== 'undefined')
+                       {
+                         if(this.type === "Number of episodes")
                            {
-                             if(this.type === "Number of episodes")
-                               {
-                                 input_a[5]=" out of " + this.content;
-                                 found =true;
-                               }
+                             input_a[5]=" out of " + this.content;
+                             found =true;
                            }
-                    });
-                   }
-                }
-              if(!found)
-                input_a[5]=input_a[5]+2;
-          deferred.resolve(input_a);
-            })  
-            .fail(function(r){
-              console.log("fail");
-            });
-        }
-        else // no need to update
-        {
-          deferred.resolve(input_a);
-        } 
+                       }
+                });
+               }
+            }
+          if(!found)
+            input_a[5]=input_a[5]+2;
+      deferred.resolve(input_a);
+        })  
+        .fail(function(r){
+          console.log("fail");
+        });
+    }
+    else // no need to update
+    {
+      deferred.resolve(input_a);
+    } 
 
     return deferred.promise();
 }

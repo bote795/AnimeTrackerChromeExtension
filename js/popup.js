@@ -38,11 +38,12 @@ $(document).ready( function() {
       getFeed(function(eplog){
         redraw();
 
-        FindTotalEpisodes(0,eplog,function(data)
+        Test(eplog,function(data)
         {
+          console.log(data);
           console.log("finish checking for TotalEps");
           spinner.stop();
-          localStorage["savedAnimes"] = JSON.stringify(data);
+          //localStorage["savedAnimes"] = JSON.stringify(data);
           redraw();
         });
       });

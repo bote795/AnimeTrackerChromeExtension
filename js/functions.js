@@ -1,4 +1,4 @@
-function FindTotalEpisodes(i, input_a, callback)
+/*function FindTotalEpisodes(i, input_a, callback)
   {
     if (i< input_a.length)
     {
@@ -60,7 +60,7 @@ function FindTotalEpisodes(i, input_a, callback)
     else
           callback(input_a);
   }
-
+*/
 //saves the array given
 function saveAnime (anime) {
   localStorage["savedAnimes"] = JSON.stringify(anime)
@@ -72,7 +72,7 @@ function loadAnime(){
 
 //check if animenewsnetwork has the total eps for this anime
 //argument is an array
-function FindTotalEpisodesTest (input_a) {
+function FindTotalEpisodes (input_a) {
     var deferred = $.Deferred();
     var anime = input_a[0];
     anime =encodeURIComponent(anime);
@@ -121,17 +121,28 @@ function FindTotalEpisodesTest (input_a) {
 
     return deferred.promise();
 }
+
 //creates and runs all the calls for all animes
 //to search for new eps
-function CallForTotalEps (episodelog, callback) {
+function CallForTotalEps (episodelog) {
+  var deferred = $.Deferred();
   var promises=[];
   for (var i = 0; i < episodelog.length; i++) {
     promises.push(FindTotalEpisodes(episodelog[i]));
   };
-  var anime;
+  var anime=[];
   $.when.apply($, promises).then(function() {
          anime.push(arguments); // The array of resolved objects as a pseudo-array
-  })
-  saveAnime(anime);
-  callback(anime);    
+  });
+  //saveAnime(anime);
+  deferred.resolve(anime);
+  return deferred.promise();
+}
+
+function Test(episodelog, callback){
+  var promises=[];
+  promises.push(CallForTotalEps(episodelog));
+  $.when.apply($, promises).then(function() {
+         callback(arguments); // The array of resolved objects as a pseudo-array
+  });
 }

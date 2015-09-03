@@ -138,7 +138,7 @@ function CallForTotalEps (episodelog) {
   deferred.resolve(anime);
   return deferred.promise();
 }
-
+//testing to see if being able to do all calls then returning data works
 function Test(episodelog, callback){
   var promises=[];
   promises.push(CallForTotalEps(episodelog));

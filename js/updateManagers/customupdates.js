@@ -22,7 +22,7 @@ else
           {
             newArray.push([urls[temp[i]][0],urls[temp[i]][1],urls[temp[i]][2],urls[temp[i]][3],urls[temp[i]][4]]); 
           }
-         localStorage["savedUpdateAnimeList"] = JSON.stringify(newArray);
+         AnimeEpisodeManager.save(newArray);
         setTimeout(function(){$('#updatelist').prop('checked',false);}, 3000); 
       alert("successfully submitted");
       }
@@ -50,7 +50,7 @@ else
         var temp= JSON.parse($("#output").html());
         setTimeout(function(){$(this).prop('checked',false);}, 3000); 
         urls.push(temp)
-        localStorage["savedUpdateAnimeList"] = JSON.stringify(urls);
+        AnimeEpisodeManager.save(urls);
         alert("successfully submitted");
         resetAddUpdatesUrl();
       }
@@ -117,7 +117,7 @@ else
             newArray.push([urls[temp[i]][0],urls[temp[i]][1],urls[temp[i]][2],urls[temp[i]][3],urls[temp[i]][4]]); 
           }
           alert("sucessesfully removed");
-         localStorage["savedUpdateAnimeList"] = JSON.stringify(newArray);
+         AnimeEpisodeManager.save(newArray);
      }
   });
    $('.defaultRestart').click(function(){
@@ -415,7 +415,7 @@ function isReady (MainUrlTest, temp) {
        }
 
        urls.push(temp)
-       localStorage["savedUpdateAnimeList"] = JSON.stringify(urls);
+       AnimeEpisodeManager.save(urls);
        alert("successfully submitted");
        resetAddUpdatesUrl();
     }

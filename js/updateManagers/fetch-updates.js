@@ -16,10 +16,10 @@ if (!localStorage["savedUpdateAnimeList"])
   'xpath="//div[@class=\'post\']//li"',
   "html",false, ""]
 ]);
-    urls=JSON.parse(localStorage["savedUpdateAnimeList"]);
+    urls=UpdatesListManager.load();
 }
 else
-  urls=JSON.parse(localStorage["savedUpdateAnimeList"]);
+  urls=UpdatesListManager.load();
 var updates= [];    
 var i=0;
 function getFeed(callback)

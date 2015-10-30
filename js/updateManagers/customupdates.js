@@ -18,10 +18,10 @@ if (!localStorage["savedUpdateAnimeList"])
   'xpath="//div[@class=\'post\']//li"',
   "html",false, ""]
 ]);
-    urls=JSON.parse(localStorage["savedUpdateAnimeList"]);
+    urls=UpdatesListManager.load();
 }
 else
-  urls=JSON.parse(localStorage["savedUpdateAnimeList"]);
+  urls=UpdatesListManager.load();
     $("#xpath").hide().removeClass('hide');
     $("#custom").hide().removeClass('hide');
     $("#confirmation").hide().removeClass('hide');
@@ -50,7 +50,7 @@ else
   //reload the list of update urls each time the settings tab is opened
   $('#myTab a[href="#settings"]').click(function (e) {
     var $target = $("#sortable");
-    urls=JSON.parse(localStorage["savedUpdateAnimeList"]);
+    urls=UpdatesListManager.load();
     $target.html("");
     $.each( urls, function( index, value ){
        $target.append(create_li(index,value[0],value[3],value[4]));
@@ -107,7 +107,7 @@ else
     var formId = this.id;  // "this" is a reference to the submitted form
     if(formId == "Updatelink")
     {
-      urls=JSON.parse(localStorage["savedUpdateAnimeList"]);
+      urls=UpdatesListManager.load();
       if(Boolean(self.UpdateUrl.value))
       {
         var temp_id = self.UpdateUrl.id;

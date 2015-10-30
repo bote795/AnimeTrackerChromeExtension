@@ -1,21 +1,7 @@
 var urls;
 if (!localStorage["savedUpdateAnimeList"]) 
 {
-  localStorage["savedUpdateAnimeList"]= JSON.stringify(
-  [
-  ["http://www.lovemyanime.net/latest-anime-episodes/",
-  'xpath="//div[@class=\'noraml-page_in_box_mid\']//div[@class=\'noraml-page_in_box_mid_link\']//@href"',
-   "html",true, "http://www.lovemyanime.net"],
-  ["http://www.animefreak.tv/tracker",
-  'xpath="//div[@class=\'view-content\']//tbody//tr//@href"',
-   "html",true, "http://www.animefreak.tv"],
-  ["http://www.animeseason.com/",
-  'xpath="//div[@id=\'frontpage_left_col\']//@href"',
-  "html",true, "http://www.animeseason.com"],
-  ["http://www.gogoanime.com/",
-  'xpath="//div[@class=\'post\']//li"',
-  "html",false, ""]
-]);
+    AnimeEpisodeManager.default();
     urls=UpdatesListManager.load();
 }
 else
@@ -109,7 +95,7 @@ function isUp(callback)
                 type: "basic",
                 title: "New Episode",
                 message: x,
-                 iconUrl: "icon.png"
+                 iconUrl: "assets/icon.png"
               }
               chrome.notifications.create( JSON.stringify({id: e ,url: updates[i][2] }), opt, function() {
                   console.log("Succesfully created " + e + " notification");

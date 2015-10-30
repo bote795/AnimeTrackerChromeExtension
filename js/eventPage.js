@@ -1,12 +1,12 @@
 //listener for requests sent from background scripts
 if ( !localStorage["savedAnimes"] ) {
-  localStorage["savedAnimes"] = JSON.stringify([]);
+  AnimeEpisodeManager.save([]);
 }
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.method === "sendURL") {
-      var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+      var arrayOfUrls = AnimeEpisodeManager.load()
       // filtiring string so it will just be title of anime
       var temp= request.title;
       temp =temp.toLowerCase();
@@ -33,12 +33,12 @@ chrome.runtime.onMessage.addListener(
      // this is format inside array of urls or each anime title, ep, newep, url, homeurl,totalEps
       if(!duplicate)
         arrayOfUrls.unshift([temp2, 0, "url", "home","home"]); // 
-      localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+      AnimeEpisodeManager.save(arrayOfUrls);
       sendResponse({status: 200});
       //TODO clear out elements inside the boxes
     }
     else if (request.method === "EpUpdate") { //start of updating Episode
-      var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+      var arrayOfUrls = AnimeEpisodeManager.load()
       var temp= request.sentUrl;
       temp =temp.toLowerCase();
       var episodeColumn = 1;
@@ -54,7 +54,7 @@ chrome.runtime.onMessage.addListener(
           break;
         }
       }
-      localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+      AnimeEpisodeManager.save(arrayOfUrls);
       sendResponse({status: 200});
 
     } // close if

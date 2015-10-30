@@ -92,7 +92,7 @@ function getFeed(callback)
 
 function isUp(callback)
 {
-  var eplog = JSON.parse(localStorage["savedAnimes"]);
+  var eplog = AnimeEpisodeManager.load()
   //switch for loops for implementation  
  for(var e = 0; e< eplog.length; e++)
   {
@@ -125,7 +125,7 @@ function isUp(callback)
           }
       }
   }
-  localStorage["savedAnimes"] = JSON.stringify(eplog);
+  AnimeEpisodeManager.save(eplog);
   reset();
  if (typeof callback === 'function') 
     callback(eplog);

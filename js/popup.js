@@ -2,7 +2,7 @@
 $(document).ready( function() {
   //TODO 
   //use an autocompletefeature to complete anime name
-  var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+  var arrayOfUrls = AnimeEpisodeManager.load()
   var $target = $('#DefaultTable > tbody');
   var $NewTableTarget = $("#NewTable > tbody");
   if (arrayOfUrls.length > 0) {
@@ -12,7 +12,7 @@ $(document).ready( function() {
      var NewEp = false; 
      //adds in the rows for each anime
     arrayOfUrls.sort();
-    localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+    AnimeEpisodeManager.save(arrayOfUrls);
     for (var i = 0; i < arrayOfUrls.length; i++) {
       var string = tableRow(i,arrayOfUrls[i][0], arrayOfUrls[i][1], arrayOfUrls[i][2], arrayOfUrls[i][3], arrayOfUrls[i][4] ,arrayOfUrls[i][5]);
       
@@ -42,7 +42,7 @@ $(document).ready( function() {
         {
           console.log("finish checking for TotalEps");
           spinner.stop();
-          localStorage["savedAnimes"] = JSON.stringify(data);
+          AnimeEpisodeManager.save(data);
           redraw();
         });
       });
@@ -58,7 +58,7 @@ $(document).ready( function() {
     var formId = this.id;
     if(formId=="addAnime")
     {
-        var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+        var arrayOfUrls = AnimeEpisodeManager.load()
         event.preventDefault();
         var fieldNumber = 2,
         str = $( "form" ).serializeArray(),
@@ -79,7 +79,7 @@ $(document).ready( function() {
             temp.push("url");
             temp.push("home");
             arrayOfUrls.unshift(temp);
-            localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+            AnimeEpisodeManager.save(arrayOfUrls);
             redraw();
             $('form')[0].reset()
           }
@@ -93,16 +93,16 @@ $('body').on('submit','form[id=homelink]',function(e) {
     //console.log(self.animeHome.value + ":" +self.animeHome.id)
     if(Boolean(self.animeHome.value))
    {
-      var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+      var arrayOfUrls = AnimeEpisodeManager.load()
       arrayOfUrls[self.animeHome.id][4]=self.animeHome.value;
-      localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+      AnimeEpisodeManager.save(arrayOfUrls);
       redraw();
    }
    else
    {
-      var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+      var arrayOfUrls = AnimeEpisodeManager.load()
       arrayOfUrls[self.animeHome.id][4]="home";
-      localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+      AnimeEpisodeManager.save(arrayOfUrls);
       redraw();
    }   
   });
@@ -114,31 +114,31 @@ $('body').on('submit','form[id=homelink]',function(e) {
      if($(e.currentTarget).text() == "-")
      {
       var id = parseInt(e.currentTarget.id);
-      var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+      var arrayOfUrls = AnimeEpisodeManager.load()
       var counter =$('.container .table .btn-toolbar .btn-group .btn').filter(".disabled").filter("#"+id);
       counter.html(--arrayOfUrls[id][1])
       arrayOfUrls[id][2]=0;
       arrayOfUrls[id][3]="url";
-      localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+      AnimeEpisodeManager.save(arrayOfUrls);
       redraw();
      }
      else if($(e.currentTarget).text() == "+")
      {
         var id = parseInt(e.currentTarget.id);
-        var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+        var arrayOfUrls = AnimeEpisodeManager.load()
         var counter =$('.container .table .btn-toolbar .btn-group .btn').filter(".disabled").filter("#"+id);
          counter.html(++arrayOfUrls[id][1])
         arrayOfUrls[id][2]=0;
         arrayOfUrls[id][3]="url";
-        localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+        AnimeEpisodeManager.save(arrayOfUrls);
         redraw();
      }
      else if($(e.currentTarget).text() == "X")
      {
         var id = parseInt(e.currentTarget.id);
-        var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+        var arrayOfUrls = AnimeEpisodeManager.load()
         arrayOfUrls.splice(id, 1);
-        localStorage["savedAnimes"] = JSON.stringify(arrayOfUrls);
+        AnimeEpisodeManager.save(arrayOfUrls);
         $('tr#' + id).remove();
         redraw();
      }
@@ -208,7 +208,7 @@ function tableRow(i, title, ep, newep, url, homeurl,totalEps)
 }
 function duplicate(item)
 {
-      var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+      var arrayOfUrls = AnimeEpisodeManager.load()
       var titleColumn =0;
      for (var i = 0; i < arrayOfUrls.length; i++) {
        if(arrayOfUrls[i][titleColumn] == item)
@@ -220,7 +220,7 @@ function duplicate(item)
  }
 function redraw()
 {
-   var arrayOfUrls = JSON.parse(localStorage["savedAnimes"]);
+   var arrayOfUrls = AnimeEpisodeManager.load()
    var $target = $('#DefaultTable > tbody');
    var $NewTableTarget = $("#NewTable > tbody");
    $NewTableTarget.empty();

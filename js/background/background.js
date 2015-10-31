@@ -20,6 +20,30 @@
           body(e);
         }
        });
+
+         chrome.storage.onChanged.addListener(function(changes, namespace) {
+          console.log(changes.savedAnimes.newValue);
+        
+                if(changes.savedAnimes != NULL || changes.savedAnimes != undefined) // if what was changed was savedAnimes
+                  {
+                    chrome.runtime.sendMessage({method: "AnimesUpdate", newValue: changes.savedAnimes.newValue},
+                    function (response) {
+                      if (response.status === 200) {
+                        console.log("updated animes sucess");
+                      }
+                    }); 
+                  }
+               if(changes.savedUpdateAnimeList != NULL || changes.savedUpdateAnimeList != undefined)
+                {
+                    chrome.runtime.sendMessage({method: "savedUpdateAnimeList", newValue: changes.savedUpdateAnimeList.newValue},
+                    function (response) {
+                      if (response.status === 200) {
+                        console.log("update the updates list sucess");
+                      }
+                    });  
+                }
+        });
+
     });
     // Or create an HTML notification:
    //30min = 1800000 milliseconds

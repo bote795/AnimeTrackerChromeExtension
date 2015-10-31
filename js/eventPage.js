@@ -63,7 +63,19 @@ chrome.runtime.onMessage.addListener(
       sendResponse({status: 200});
 
     }//close updateRequest
-    else;
+    else if (request.method === "AnimesUpdate") {
+        // localStorage[AnimeEpisodeManager.key]= request.newValue;
+        //AnimeEpisodeManager.load();
+        console.log(request.newValue);
+        sendResponse({status: 200});
+    }
+    else if (request.method === "savedUpdateAnimeList") {
+        //localStorage[UpdatesListManager.key]= request.newValue;
+        //UpdatesListManager.load();
+        console.log(request.newValue);
+        sendResponse({status: 200});
+    }
+    else ;
   })
 
 function NextEp(url, title, ep)
@@ -74,38 +86,38 @@ function NextEp(url, title, ep)
     {
       ep = parseInt(ep);
     }
-title = title.toLowerCase();
-words =title.split(new RegExp("\\s+"));
-//finds a part of name and creates a substring from where that part of the url starts and the remainder of url
-  for (var i = 0; i < words.length; i++) 
-  {
-    
-    if(url.indexOf(words[i])!= -1)
+    title = title.toLowerCase();
+    words =title.split(new RegExp("\\s+"));
+    //finds a part of name and creates a substring from where that part of the url starts and the remainder of url
+    for (var i = 0; i < words.length; i++) 
     {
-      url = url.substring(url.indexOf(words[i])+words[i].length, url.length);
+      
+      if(url.indexOf(words[i])!= -1)
+      {
+        url = url.substring(url.indexOf(words[i])+words[i].length, url.length);
+      }
+      else
+         return false;
     }
-    else
-       return false;
-  }
-//looks for episode then episode # by creating substrings
-//if episode isn't found then it just looks for episode number to account for websites that don't write in episode
-  var numbers =url.match( numberPattern );
-  if (numbers != null)
-    if(url.indexOf("episode") != -1)
-    {
-       url = url.substring(url.indexOf("episode")+ "episode".length, url.length);
-      if((ep+1) == parseInt(url.match( numberPattern )[0]))
-        {
-          return true;
-        }
-    }
-    else if((ep+1) == parseInt(url.match( numberPattern )[0]))
-        {
-          return true;
-        }
+    //looks for episode then episode # by creating substrings
+    //if episode isn't found then it just looks for episode number to account for websites that don't write in episode
+    var numbers =url.match( numberPattern );
+    if (numbers != null)
+      if(url.indexOf("episode") != -1)
+      {
+         url = url.substring(url.indexOf("episode")+ "episode".length, url.length);
+        if((ep+1) == parseInt(url.match( numberPattern )[0]))
+          {
+            return true;
+          }
+      }
+      else if((ep+1) == parseInt(url.match( numberPattern )[0]))
+          {
+            return true;
+          }
+      else 
+        return false
     else 
-      return false
-  else 
-    return false;
+      return false;
 
 }

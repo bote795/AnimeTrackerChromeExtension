@@ -22,7 +22,7 @@ else
           {
             newArray.push([urls[temp[i]][0],urls[temp[i]][1],urls[temp[i]][2],urls[temp[i]][3],urls[temp[i]][4]]); 
           }
-         AnimeEpisodeManager.save(newArray);
+         UpdatesListManager.save(newArray);
         setTimeout(function(){$('#updatelist').prop('checked',false);}, 3000); 
       alert("successfully submitted");
       }

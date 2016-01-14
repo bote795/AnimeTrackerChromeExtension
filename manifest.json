@@ -1,6 +1,5 @@
 {
   "manifest_version": 2,
-  "key": "copbfmolcnbonbkndookhieiipekikng",
   "name": "AnimeTrackerStorage",
   "description": "Keep up to date with your Anime! Add the anime you're watching to the list it'll track what episode you are on and when its up!",
   "version": "1.8",

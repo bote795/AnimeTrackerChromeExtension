@@ -1,7 +1,7 @@
 var urls;
 if (!localStorage["savedUpdateAnimeList"]) 
 {
-    AnimeEpisodeManager.default();
+    UpdatesListManager.default();
     urls=UpdatesListManager.load();
 }
 else
